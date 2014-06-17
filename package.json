@@ -1,0 +1,22 @@
+{
+  "name": "bemhtml-source-convert",
+  "version": "0.0.1",
+  "description": "ERROR: No README.md file found!",
+  "main": "lib/convert.js",
+  "scripts": {
+
+  },
+  "repository": "",
+  "author": {
+      "name": ""
+  },
+    "license": "",
+    "dependencies": {
+        "bemhtml-compat": "~0.0.11"
+    },
+  "devDependencies": {
+
+  },
+    "directories": {},
+    "private": true
+}
