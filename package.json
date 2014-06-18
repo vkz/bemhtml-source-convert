@@ -12,7 +12,10 @@
   },
     "license": "",
     "dependencies": {
-        "bemhtml-compat": "~0.0.11"
+        "ometajs": "~3.2.4",
+        "bemhtml-compat": "~0.0.11",
+        "bem-xjst": "~0.3.4",
+        "xjst": "~0.4.21"
     },
   "devDependencies": {
 
