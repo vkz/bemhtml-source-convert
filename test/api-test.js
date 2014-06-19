@@ -2,93 +2,160 @@ var convert = require('..'),
     stx = convert.stx,
     bh = convert.bh,
     pp = convert.prettyPrint;
-
+var assert = require('assert');
 var diff = require('html-differ');
+
+describe('bemhtml-source-convert/API', function () {
+
+    describe('#stx', function () {
+
+        var json = {block: "button"};
+        var template = stx.getSource(function(){/*
+
+
+       */});
+
+        it('should parse old syntax into xjst-ast', function () {
+            var template = stx.getSource(function(){/*
+                 block button, tag: 'button'
+                */});
+            var ast = stx.parse(template);
+            assert.equal(JSON.stringify(ast),
+                         '[["template",["binop","&&",["binop","&&",["unop","!",'   +
+                         '["getp",["string","elem"],["this"]]],["binop","===",'    +
+                         '["getp",["string","block"],["this"]],'                   +
+                         '["string","button"]]],["binop","===",["getp",["string",' +
+                         '"_mode"],["this"]],["string","tag"]]],["begin",'         +
+                         '["return",["string","button"]]]]]' );
+
+        });
+
+
+
+        it('should compile old syntax into js-syntax', function () {
+
+            assert.fail();
+
+        });
+
+
+        it('should match bemjson against old syntax to produce html', function () {
+
+            assert.fail();
+
+        });
+
+
+        it('should convert old syntax into bh', function () {
+            assert.fail();
+
+        });
+
+
+    });
+
+
+    describe('#stxjs', function () {
+
+    });
+
+
+    describe('#bh', function () {
+
+    });
+
+
+
+});
+
 
 /**********
  playground
  **********/
 
-var src = "";
-
-// Source: examples near the bottom of the page in
-// http://ru.bem.info/libs/bem-core/2.2.0/templating/bemhtml-js-syntax/
-
-var temp1 = getSource(function(){/*
-block logo {
-  tag: 'img'
-}
-                                */});
-
-var temp2 = getSource(function(){/*
-block logo {
-  tag: 'img'
-  attrs: ({alt: 'logo', href: 'http://...'})
-}
-                                */});
-
-var temp3 = getSource(function(){/*
-block b-page {
-  tag: 'html'
-  bem: false
-}
-                                */});
-
-var temp4 = getSource(function(){/*
-block b-text {
-    this.elem, tag: this.ctx.elem
-    this.elem, this.ctx.id, attrs: { id: this.ctx.id  }
-}
-                                */});
-
-var temp5 = getSource(function(){/*
-block b-bla {
-  tag:'span'
-  mod 0-mode v2, tag:'a'
-  mix: [ { elemMods: { m2: 'v2' }} ]
-  js: true
-}
-                                */});
-
-var temp6 = getSource(function(){/*
-block b-inner, default: applyCtx({ block: 'b-wrapper', content: this.ctx })
-                                */});
-
-var temp7 = getSource(function(){/*
-block b-link, elem e1 {
-  tag: 'span'
-  this.ctx.url {
-     tag: 'a'
-     attrs: { href: this.ctx.url }
-     reset {
-         attrs: { href: undefined }
-      }
-   }
-}
-                                */});
-
-var resold,
-    resbh,
-    xast,
-    srcjs;
-
-var json = {block: "button"};
-
-// old stx
-var tempstx = 'block button, tag: \'button\'';
-xast = stx.parse(tempstx);
-srcjs = stx.toStxjs(tempstx);
-resold = stx.toHtml(tempstx)(json);
 
 
-// bh stx
-var tempbh = bh.create();
-tempbh.match('button', function(ctx, json) {
-    ctx.tag('button');
-});
+// var resold,
+//     resbh,
+//     xast,
+//     srcjs;
 
-resbh = bh.toHtml(tempbh)(json);
+// var json = {block: "b-text"};
+
+// // old stx
+// var tempstx = temp6;
+// xast = stx.parse(tempstx);
+// srcjs = stx.toStxjs(tempstx);
+// resold = stx.toHtml(tempstx)(json);
 
 
-// diff old vs bh
-diff.isEqual(resold, resbh);
+// // bh stx
+
+// var tempbh = bh.create();
+// tempbh.match('button', function(ctx, json) {
+//     ctx.tag('button');
+// });
+
+// resbh = bh.toHtml(tempbh)(json);
+
+
+// // diff old vs bh
+// diff.isEqual(resold, resbh);
+
+
+
+// // Source: examples near the bottom of the page in
+// // http://ru.bem.info/libs/bem-core/2.2.0/templating/bemhtml-js-syntax/
+
+// var temp1 = stx.getSource(function(){/*
+// block logo {
+//   tag: 'img'
+// }
+//                                 */});
+
+// var temp2 = stx.getSource(function(){/*
+// block logo {
+//   tag: 'img'
+//   attrs: ({alt: 'logo', href: 'http://...'})
+// }
+//                                 */});
+
+// var temp3 = stx.getSource(function(){/*
+// block b-page {
+//   tag: 'html'
+//   bem: false
+// }
+//                                 */});
+
+// var temp4 = stx.getSource(function(){/*
+// block b-text {
+//     this.elem, tag: this.ctx.elem
+//     this.elem, this.ctx.id, attrs: { id: this.ctx.id  }
+// }
+//                                 */});
+
+// var temp5 = stx.getSource(function(){/*
+// block b-bla {
+//   tag:'span'
+//   mod 0-mode v2, tag:'a'
+//   mix: [ { elemMods: { m2: 'v2' }} ]
+//   js: true
+// }
+//                                 */});
+
+// var temp6 = stx.getSource(function(){/*
+// block b-inner, default: applyCtx({ block: 'b-wrapper', content: this.ctx })
+//                                 */});
+
+// var temp7 = stx.getSource(function(){/*
+// block b-link, elem e1 {
+//   tag: 'span'
+//   this.ctx.url {
+//      tag: 'a'
+//      attrs: { href: this.ctx.url }
+//      reset {
+//          attrs: { href: undefined }
+//       }
+//    }
+// }
+//                                 */});
