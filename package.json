@@ -15,10 +15,11 @@
         "ometajs": "~3.2.4",
         "bemhtml-compat": "~0.0.11",
         "bem-xjst": "~0.3.4",
-        "xjst": "~0.4.21"
+        "xjst": "~0.4.21",
+        "bh": "~2.0.1"
     },
   "devDependencies": {
-
+      "html-differ": "~0.3.1"
   },
     "directories": {},
     "private": true
