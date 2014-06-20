@@ -69,27 +69,42 @@ var temp = stx.get(function () {/*
 
                        */});
 
+// var tempbh = (function(bh) {
+
+//     bh.match('button', function(ctx, json) {
+//         ctx.tParam('_button', json);
+
+//         ctx.js(true);
+
+//         ctx.attr('role', 'button').mix({ elem : 'control' });
+
+//         json.tabIndex && ctx.attr('tabindex', json.tabIndex);
+
+//         // Attributes for button variant
+//         if(!ctx.mod('type')) {
+//             json.tag || ctx.attr('type', json.type || 'button');
+//             json.name && ctx.attr('name', json.name);
+//             json.val && ctx.attr('value', json.val);
+//             ctx.mod('disabled') && ctx.attr('disabled', 'disabled');
+//         }
+
+//         ctx.tag(json.tag || 'button');
+
+//         var content = ctx.content();
+//         if(typeof content === 'undefined') {
+//             content = [json.icon];
+//             json.text && content.push({ elem : 'text', content : json.text });
+//             ctx.content(content);
+//         }
+//     });
+
+//     return bh;
+
+// }) (bh.create ());
+
 var tempbh = (function(bh) {
-
     bh.match('button', function(ctx, json) {
-        ctx.tParam('_button', json);
-
-        ctx.js(true);
-
-        ctx.attr('role', 'button').mix({ elem : 'control' });
-
-        json.tabIndex && ctx.attr('tabindex', json.tabIndex);
-
-        // Attributes for button variant
-        if(!ctx.mod('type')) {
-            json.tag || ctx.attr('type', json.type || 'button');
-            json.name && ctx.attr('name', json.name);
-            json.val && ctx.attr('value', json.val);
-            ctx.mod('disabled') && ctx.attr('disabled', 'disabled');
-        }
-
         ctx.tag(json.tag || 'button');
-
         var content = ctx.content();
         if(typeof content === 'undefined') {
             content = [json.icon];
@@ -97,11 +112,10 @@ var tempbh = (function(bh) {
             ctx.content(content);
         }
     });
-
     return bh;
-
 }) (bh.create ());
 
+bh.tohtml(tempbh)({block: 'button', content: "hello"});
 
 // equal html now that i-bem.js is fixed
 diff.bemDiff(bh.tohtml(tempbh)({block: 'button'}),

@@ -23,6 +23,19 @@ describe('bemhtml-source-convert/API', function () {
       }
     */});
 
+    var templatebh = function(bh) {
+        bh.match('button', function(ctx, json) {
+            ctx.tag(json.tag || 'button');
+            var content = ctx.content();
+            if(typeof content === 'undefined') {
+                content = [json.icon];
+                json.text && content.push({ elem : 'text', content : json.text });
+                ctx.content(content);
+            }
+        });
+        return bh;
+    };
+
     describe('#stx', function () {
 
         it('should parse old syntax into xjst-ast', function () {
@@ -67,9 +80,15 @@ describe('bemhtml-source-convert/API', function () {
     });
 
     describe('#bh', function () {
+        it('should modify a fresh bh-object with stuff from template', function(){
+            var template = templatebh(bh.create());
+            assert.notDeepEqual(template._matchers, []);
+        });
 
+        it('should produce html', function(){
+            var template = templatebh(bh.create());
+            assert.equal(bh.tohtml(template)({block: 'button', content: "hello"}),
+                         '<button class="button">hello</button>');
+        });
     });
-
-
-
 });
