@@ -429,7 +429,7 @@ def()(function() {
             buf.push(
                 ' ', jsAttr || 'onclick', '="return ',
                 this._.attrEscape(JSON.stringify(jsParams)),
-                '"');
+                ';"'); //fix to generate html equal to what bh generates
         }
 
         var attrs = apply('attrs');

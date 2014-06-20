@@ -103,11 +103,13 @@ var tempbh = (function(bh) {
 }) (bh.create ());
 
 
-// diff shows a missing `;` at the end of `onclick = return {}` in
-// html generated from old syntax. i-bem.js is to blame. Adding `;` to
-// i-bem.js in the next commit.
+// equal html now that i-bem.js is fixed
 diff.bemDiff(bh.tohtml(tempbh)({block: 'button'}),
              stx.tohtml (temp) ({block: 'button'}));
+
+console.log(diff.isEqual (bh.tohtml(tempbh)({block: 'button'}),
+                          stx.tohtml (temp) ({block: 'button'})));
+
 
 
 
