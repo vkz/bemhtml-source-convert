@@ -1,19 +1,30 @@
 var convert = require('..'),
     stx = convert.stx,
+    stxjs = convert.stxjs,
     bh = convert.bh,
     pp = convert.prettyPrint;
 var assert = require('assert');
 var diff = require('html-differ');
+var ibem = require('bemhtml-compat/test/fixtures/i-bem');
 
 describe('bemhtml-source-convert/API', function () {
 
+    var template = stx.getSource(function(){/*
+      block b1, tag: 'a'
+      block b1, content: {
+        local('submode', { x: 1},
+              this.p = true, this.z = {}, this.z.d = 'world') {
+          this._buf.push('hello ' + this.z.d);
+        }
+        return apply('subcontent', this.x = '!');
+      }
+      block b1, subcontent: {
+        return this.x;
+      }
+    */});
+
+
     describe('#stx', function () {
-
-        var json = {block: "button"};
-        var template = stx.getSource(function(){/*
-
-
-       */});
 
         it('should parse old syntax into xjst-ast', function () {
             var template = stx.getSource(function(){/*
@@ -30,25 +41,19 @@ describe('bemhtml-source-convert/API', function () {
 
         });
 
-
-
         it('should compile old syntax into js-syntax', function () {
-
-            assert.fail();
-
+            var re = /(match\((function.*)+\)\(.*\);)+/i;
+            assert(!!stx.toStxjs(template).match(re) === true);
         });
 
-
         it('should match bemjson against old syntax to produce html', function () {
-
-            assert.fail();
-
+            assert.equal(stx.toHtml(template)({ block: 'b1' }),
+                         '<a class="b1">hello world!</a>');
         });
 
 
         it('should convert old syntax into bh', function () {
             assert.fail();
-
         });
 
 
@@ -56,6 +61,10 @@ describe('bemhtml-source-convert/API', function () {
 
 
     describe('#stxjs', function () {
+        it('should match bemjson against js-syntax to produce html', function () {
+            assert.equal(stxjs.toHtml(stx.toStxjs(template))({ block: 'b1' }),
+                         '<a class="b1">hello world!</a>');
+        });
 
     });
 
