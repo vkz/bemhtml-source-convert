@@ -86,7 +86,7 @@ describe('bemhtml-source-convert/API', function () {
         });
 
         it('should produce html', function(){
-            var template = templatebh(bh.create());
+            var template = bh.get(templatebh);
             assert.equal(bh.tohtml(template)({block: 'button', content: "hello"}),
                          '<button class="button">hello</button>');
         });
