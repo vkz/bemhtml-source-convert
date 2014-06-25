@@ -1,7 +1,6 @@
 var convert = require('..'),
     stx = convert.stx,
     stxjs = convert.stxjs,
-    bh = convert.bh,
     pp = convert.prettyPrint,
     pb = convert.toBrowser,
     assert = require('assert'),
