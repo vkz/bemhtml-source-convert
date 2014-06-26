@@ -16,10 +16,21 @@ var temp12 = stx.get(function () {/*
    block button {
        tag: 'button'
        content: 'text'
+       link { tag: 'a'}
    }
 */});
 
-var temp21 = stx.get(function () {/*
+var temp21_a = stx.get(function () {/*
+   block button {
+       tag: 'button'
+       this.ctx.url {
+                      tag: 'a'
+                      attrs: {href: this.ctx.url}
+                     }
+   }
+*/});
+
+var temp21_b = stx.get(function () {/*
    block button {
        tag: 'button'
        typeof this.ctx.url !== 'undefined' {
@@ -45,12 +56,12 @@ block button {
 var temps = {
     t11: temp11,
     t12: temp12,
-    t21: temp21,
+    t21a: temp21_a,
+    t21b: temp21_b,
     t22a: temp22_a,
     t22b: temp22_b
 };
 
-// var asts = lo.mapValues(temps, stx.classify);
+var asts = lo.mapValues(temps, stx.classify);
 
-var ast = stx.classify(temp11);
-ast;
+asts;
