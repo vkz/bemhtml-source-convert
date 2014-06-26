@@ -4,9 +4,8 @@ var convert = require('..'),
     pb = convert.toBrowser,
     ometajs = require('ometajs'),
     compat = require('bemhtml-compat'),
-    lo = require('lodash');
-
-
+    lo = require('lodash'),
+    bemparser = require('../lib/ometa/bemhtml').BEMHTMLParser;
 
 var temp11 = stx.get(function () {/*
    block button, tag: 'button'
@@ -62,13 +61,11 @@ var temps = {
     t22b: temp22_b
 };
 
+/** to see what custom predicate is parsed into */
+// bemparser.matchAll('this._bla', 'bemCustom');
+
+
 var asts = lo.mapValues(temps, stx.classify);
-lo.values(asts).map(function(val) {return val[0];});
+var classes = lo.values(asts).map(function(val) {return val[0];});
 
-// var ast = stx.classify(temp22_b),
-//     c = ast.shift(),
-//     pr = c.pr;
-
-// ast;
-// c;
-// pr;
+classes;
