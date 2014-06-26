@@ -53,16 +53,22 @@ block button {
 }
 */});
 
-// var temps = {
-//     t11: temp11,
-//     t12: temp12,
-//     t21a: temp21_a,
-//     t21b: temp21_b,
-//     t22a: temp22_a,
-//     t22b: temp22_b
-// };
+var temps = {
+    t11: temp11,
+    t12: temp12,
+    t21a: temp21_a,
+    t21b: temp21_b,
+    t22a: temp22_a,
+    t22b: temp22_b
+};
 
-// var asts = lo.mapValues(temps, stx.classify);
-// asts;
+var asts = lo.mapValues(temps, stx.classify);
+lo.values(asts).map(function(val) {return val[0];});
 
-stx.classify(temp21_a);
+// var ast = stx.classify(temp22_b),
+//     c = ast.shift(),
+//     pr = c.pr;
+
+// ast;
+// c;
+// pr;
