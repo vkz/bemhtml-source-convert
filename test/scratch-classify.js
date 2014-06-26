@@ -16,7 +16,7 @@ var temp12 = stx.get(function () {/*
    block button {
        tag: 'button'
        content: 'text'
-       link { tag: 'a'}
+       this._bla && this._bla === 'bla' { tag: 'a'}
    }
 */});
 
@@ -53,15 +53,16 @@ block button {
 }
 */});
 
-var temps = {
-    t11: temp11,
-    t12: temp12,
-    t21a: temp21_a,
-    t21b: temp21_b,
-    t22a: temp22_a,
-    t22b: temp22_b
-};
+// var temps = {
+//     t11: temp11,
+//     t12: temp12,
+//     t21a: temp21_a,
+//     t21b: temp21_b,
+//     t22a: temp22_a,
+//     t22b: temp22_b
+// };
 
-var asts = lo.mapValues(temps, stx.classify);
+// var asts = lo.mapValues(temps, stx.classify);
+// asts;
 
-asts;
+stx.classify(temp21_a);
