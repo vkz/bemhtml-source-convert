@@ -39,6 +39,17 @@ var temp21_b = stx.get(function () {/*
    }
 */});
 
+var temp21_c = stx.get(function () {/*
+   block button {
+       tag: 'button'
+       this.ctx.url {
+                      tag: 'a'
+                      attrs: {href: this.ctx.url}
+                      this._bla, attrs: {href: this._bla}
+                     }
+   }
+*/});
+
 var temp22_a = stx.get(function(){/*
 block button {
     this.elem, tag: this.ctx.elem
@@ -68,4 +79,5 @@ var temps = {
 var asts = lo.mapValues(temps, stx.classify);
 var classes = lo.values(asts).map(function(val) {return val[0];});
 
-classes;
+var a = lo.zipObject(lo.keys(temps),
+                     classes);
