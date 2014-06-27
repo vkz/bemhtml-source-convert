@@ -2,12 +2,16 @@ var convert = require('..'),
     stx = convert.stx,
     stxjs = convert.stxjs,
     bh = convert.bh,
-    pp = convert.prettyPrint;
-var assert = require('assert');
-var diff = require('html-differ');
-var ibem = require('./i-bem');
+    pp = convert.prettyPrint,
+    assert = require('assert'),
+    diff = require('html-differ'),
+    ibem = require('./i-bem'),
 
-describe('bemhtml-source-convert/API', function () {
+    testingMsg = '\n************\n' +
+                 'Convert API.\n' +
+                 '************\n';
+
+describe(testingMsg, function () {
 
     var template = stx.get(function(){/*
       block b1, tag: 'a'

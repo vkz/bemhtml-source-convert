@@ -6,9 +6,11 @@ var convert = require('..'),
     compat = require('bemhtml-compat'),
     lo = require('lodash'),
     assert = require('assert'),
-    bemparser = require('../lib/ometa/bemhtml').BEMHTMLParser;
-
-// Test templates
+    bemparser = require('../lib/ometa/bemhtml').BEMHTMLParser,
+    testingMsg = '\n' +
+        '**********************\n' +
+        'Classifying templates.\n' +
+        '**********************\n';
 
 var temp11 = stx.get(function () {/*
    block button, tag: 'button'
@@ -67,7 +69,7 @@ var temp22_b = stx.get(function(){/*
 */});
 
 
-describe('Classify templates', function (){
+describe(testingMsg, function (){
 
     var templates = {
         t11: temp11,
@@ -76,10 +78,7 @@ describe('Classify templates', function (){
         t21b: temp21_b,
         t22a: temp22_a,
         t22b: temp22_b
-    },
-        classified = lo.
-            mapValues(templates,
-                      lo.compose(lo.first, stx.classify));
+    };
 
     function haveClass (classObj, className) {
         className = JSON.stringify(className); // in case its a number
@@ -94,44 +93,124 @@ describe('Classify templates', function (){
         return lo.first(stx.classify(template));
     };
 
-    describe('Group 1', function () {
-
+    describe(templates.t11, function () {
         var classified;
 
-        it('Should classify template 1', function(){
+        it('Should be parsed and classified', function(){
             assert.doesNotThrow(
                 function () { classified = classify (templates.t11); }
             );
         });
 
-        it('Should classify template 1 into 1.1',
+        it('Should be classified into 1.1',
            function () {
                assert.ok(haveClass(classified, 1.1));
                assert.ok(doesNot(haveClass(classified, 1.2)));
            });
+
     });
 
-//    describe('Group 2', function (){} );
+    describe(templates.t12, function (){
+        var classified;
 
-//    describe('Group 3', function (){} );
+        it('Should be parsed and classified', function(){
+            assert.doesNotThrow(
+                function () { classified = classify (templates.t12); }
+            );
+        });
+
+        it('Should be classified into 1.2 and 2.3',
+           function () {
+               assert.ok(haveClass(classified, 1.2));
+               assert.ok(haveClass(classified, 2.3));
+               assert.ok(doesNot(haveClass (classified, 2.1)));
+               assert.ok(doesNot(haveClass (classified, 2.2)));
+           });
+
+    });
+
+    describe(templates.t21a, function (){
+        var classified;
+
+        it('Should be parsed and classified', function(){
+            assert.doesNotThrow(
+                function () {
+                    classified = classify (templates.t21a);
+                }
+            );
+        });
+
+        it('Should be classified into 1.2 and 2.1',
+           function () {
+               assert.ok(haveClass(classified, 1.2));
+               assert.ok(haveClass(classified, 2.1));
+               assert.ok(doesNot(haveClass (classified, 2.2)));
+               assert.ok(doesNot(haveClass (classified, 2.3)));
+           });
+
+    });
+
+    describe(templates.t21b, function (){
+        var classified;
+
+        it('Should be parsed and classified', function(){
+            assert.doesNotThrow(
+                function () {
+                    classified = classify (templates.t21b);
+                }
+            );
+        });
+
+        it('Should be classified into 1.2 and 2.1',
+           function () {
+               assert.ok(haveClass(classified, 1.2));
+               assert.ok(haveClass(classified, 2.1));
+               assert.ok(doesNot(haveClass (classified, 2.2)));
+               assert.ok(doesNot(haveClass (classified, 2.3)));
+           });
+
+    });
+
+    describe(templates.t22a, function (){
+        var classified;
+
+        it('Should be parsed and classified', function(){
+            assert.doesNotThrow(
+                function () {
+                    classified = classify (templates.t22a);
+                }
+            );
+        });
+
+        it('Should be classified into 1.2, 2.1 and 2.2',
+           function () {
+               assert.ok(haveClass(classified, 1.2));
+               assert.ok(haveClass(classified, 2.1));
+               assert.ok(haveClass(classified, 2.2));
+               assert.ok(doesNot(haveClass (classified, 2.3)));
+           });
+
+    });
+
+    describe(templates.t22b, function (){
+        var classified;
+
+        it('Should be parsed and classified', function(){
+            assert.doesNotThrow(
+                function () {
+                    classified = classify (templates.t22b);
+                }
+            );
+        });
+
+        it('Should be classified into 1.2 and 2.2',
+           function () {
+               assert.ok(haveClass(classified, 1.2));
+               assert.ok(haveClass(classified, 2.2));
+               assert.ok(doesNot(haveClass (classified, 2.1)));
+               assert.ok(doesNot(haveClass (classified, 2.3)));
+           });
+
+    });
 
 });
-
-
-// var templates = {
-//     t11: temp11,
-//     t12: temp12,
-//     t21a: temp21_a,
-//     t21b: temp21_b,
-//     t22a: temp22_a,
-//     t22b: temp22_b
-// };
-
-/** to see what custom predicate is parsed into */
-// bemparser.matchAll('this._bla', 'bemCustom');
-
-// var classified = lo.
-//         mapValues(templates,
-//                   lo.compose(lo.first, stx.classify));
-
-// console.log(classified);
