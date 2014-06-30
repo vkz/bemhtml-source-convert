@@ -12,28 +12,6 @@ var convert = require('..'),
         'Classifying templates.\n' +
         '**********************\n';
 
-// TEMPORARY
-function getBody(maybeAst) {
-    function dropLevel (ast) {
-        return lo.flatten(lo.map (ast, lo.rest),
-                         true);
-    }
-    if (typeof maybeAst == 'string') {
-      maybeAst =  lo.rest(stx.classify(maybeAst));
-    }
-    var ast = lo.flatten(maybeAst, true).
-            filter(function (e) { return lo.first(e) === 'body';});
-    return dropLevel(dropLevel (ast));
-}
-
-
-var temp = stx.get(function () {/*
-block b1 {
-  content: [applyNext(), 'text2']
-}*/});
-
-// END [TEMPORARY]
-
 var temp11 = stx.get(function () {/*
    block button, tag: 'button'
 */});
@@ -119,8 +97,65 @@ var temp33_c = stx.get(function () {/*
                     a = { href: ctx.url };
                 return this._.extend(p, a);}
         }
-    }
+}
 */});
+
+
+/** Playground */
+
+function getBody(maybeAst) {
+    function dropLevel (ast) {
+        return lo.flatten(lo.map (ast, lo.rest),
+                          true);
+    }
+    if (typeof maybeAst == 'string') {
+        maybeAst =  lo.rest(stx.classify(maybeAst));
+    }
+    var ast = lo.flatten(maybeAst, true).
+            filter(function (e) { return lo.first(e) === 'body';});
+    return dropLevel(dropLevel (ast));
+}
+
+var temp = stx.get(function () {/*
+                                 block b1 {
+                                 content: [applyNext(), 'text2']
+                                 }*/});
+
+function classify (template) {
+    return lo.first(stx.classify(template));
+};
+
+var templates = {
+    t11: temp11,
+    t12: temp12,
+    t21a: temp21_a,
+    t21b: temp21_b,
+    t22a: temp22_a,
+    t22b: temp22_b,
+    t32: temp32,
+    t33a: temp33_a,
+    t33b: temp33_b,
+    t33c: temp33_c
+};
+
+var bodies = lo.mapValues(templates, classify);
+
+// checks if a tree (array) contains a given subtree (array)
+function contains(tree, sub) {
+    var amI = lo.isEqual(tree, sub);
+    var isAnyNode = lo.some(tree,
+                            function(t) {
+                                return lo.isArray(t) && contains(t, sub);
+                            });
+    return amI || isAnyNode;
+}
+
+// how to generate a subtree
+var sub = bemparser.matchAll('this.ctx.url', 'asgnExpr'),
+    tree = bodies.t21a.asgnExpr;
+
+// is subtree?
+contains(tree, sub);
 
 describe(testingMsg, function (){
 
