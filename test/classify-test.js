@@ -1,7 +1,9 @@
 var convert = require('..'),
     stx = convert.stx,
-    pp = convert.prettyPrint,
-    pb = convert.toBrowser,
+    utils = convert.utils,
+    pp = utils.pp,
+    pb = utils.pb,
+    contains = utils.contains,
     ometajs = require('ometajs'),
     compat = require('bemhtml-compat'),
     lo = require('lodash'),
@@ -86,11 +88,13 @@ block b1 {
  }
 */});
 
+// Thinking this should classify into 2.4 (arb js in predicate), but
+// not sure how to achieve this
 var temp33_c = stx.get(function () {/*
     block logo {
         this.ctx.url, tag: 'a'
         attrs {
-            true: {role: 'logo'}
+            lo.isEmpty(this) || true: {role: 'logo'}
             this.ctx.url: {
                 var ctx = this.ctx,
                     p = applyNext(),
@@ -99,65 +103,6 @@ var temp33_c = stx.get(function () {/*
         }
 }
 */});
-
-
-/** Playground */
-
-function getBody(maybeAst) {
-    function dropLevel (ast) {
-        return lo.flatten(lo.map (ast, lo.rest),
-                          true);
-    }
-    if (typeof maybeAst == 'string') {
-        maybeAst =  lo.rest(stx.classify(maybeAst));
-    }
-    var ast = lo.flatten(maybeAst, true).
-            filter(function (e) { return lo.first(e) === 'body';});
-    return dropLevel(dropLevel (ast));
-}
-
-var temp = stx.get(function () {/*
-                                 block b1 {
-                                 content: [applyNext(), 'text2']
-                                 }*/});
-
-function classify (template) {
-    return lo.first(stx.classify(template));
-};
-
-var templates = {
-    t11: temp11,
-    t12: temp12,
-    t21a: temp21_a,
-    t21b: temp21_b,
-    t22a: temp22_a,
-    t22b: temp22_b,
-    t32: temp32,
-    t33a: temp33_a,
-    t33b: temp33_b,
-    t33c: temp33_c
-};
-
-var bodies = lo.mapValues(templates, classify);
-
-// checks if a tree (array) contains a given subtree (any JS value)
-function contains(tree, sub) {
-    return lo.some(tree,
-                   function(t) {
-                       return lo.isEqual(t, sub) ||
-                           lo.isArray(t) &&
-                           contains(t, sub);
-                   });
-}
-
-// how to generate a subtree
-var sub = bemparser.matchAll('this.ctx.url', 'asgnExpr'),
-    tree = bodies.t21a.asgnExpr;
-
-// is subtree?
-contains(tree, sub);
-
-
 
 describe(testingMsg, function (){
 
