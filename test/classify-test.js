@@ -140,14 +140,14 @@ var templates = {
 
 var bodies = lo.mapValues(templates, classify);
 
-// checks if a tree (array) contains a given subtree (array)
+// checks if a tree (array) contains a given subtree (any JS value)
 function contains(tree, sub) {
-    var amI = lo.isEqual(tree, sub);
-    var isAnyNode = lo.some(tree,
-                            function(t) {
-                                return lo.isArray(t) && contains(t, sub);
-                            });
-    return amI || isAnyNode;
+    return lo.some(tree,
+                   function(t) {
+                       return lo.isEqual(t, sub) ||
+                           lo.isArray(t) &&
+                           contains(t, sub);
+                   });
 }
 
 // how to generate a subtree
@@ -156,6 +156,8 @@ var sub = bemparser.matchAll('this.ctx.url', 'asgnExpr'),
 
 // is subtree?
 contains(tree, sub);
+
+
 
 describe(testingMsg, function (){
 
