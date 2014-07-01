@@ -8,4 +8,4 @@ test/scratch*
 npm-debug.log
 /data.js
 /scratch.html
-
+.idea
