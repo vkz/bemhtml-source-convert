@@ -1,28 +1,33 @@
 {
-  "name": "bemhtml-source-convert",
-  "version": "0.0.1",
-  "description": "BEMHTML source conversion tool",
-  "main": "lib/convert.js",
-  "scripts": {
-    "test": "mocha --reporter spec test/*-test.js"
-  },
-  "repository": "",
-  "author": {
-    "name": ""
-  },
-  "license": "",
-  "dependencies": {
-    "ometajs": "~3.2.4",
-    "bemhtml-compat": "~0.0.11",
-    "bem-xjst": "~0.3.4",
-    "xjst": "~0.4.21",
-    "bh": "~2.0.1",
-    "mocha": "~1.20.1",
-    "lodash": "~2.4.1"
-  },
-  "devDependencies": {
-    "html-differ": "~0.3.1"
-  },
-  "directories": {},
-  "private": true
+    "name": "bemhtml-source-convert",
+    "version": "0.0.1",
+    "description": "BEMHTML source conversion tool",
+    "main": "lib/convert.js",
+    "scripts": {
+        "test": "mocha --reporter spec test/*-test.js"
+    },
+    "repository": "",
+    "author": {
+        "name": ""
+    },
+    "license": "",
+    "bin": {
+        "bemhtml2bh": "./bin/bemhtml2bh"
+    },
+    "dependencies": {
+        "ometajs": "~3.2.4",
+        "bemhtml-compat": "~0.0.11",
+        "bem-xjst": "~0.3.4",
+        "xjst": "~0.4.21",
+        "bh": "~2.0.1",
+        "mocha": "~1.20.1",
+        "lodash": "~2.4.1",
+        "coa": "~0.4.1",
+        "q": "~1.0.1"
+    },
+    "devDependencies": {
+        "html-differ": "~0.3.1"
+    },
+    "directories": {},
+    "private": true
 }
