@@ -1,0 +1,14 @@
+block link {
+    tag: 'a'
+    attrs: {
+        var ctx = this.ctx,
+            a = {},
+            props = ['title', 'target'], p;
+
+        while (p = props.pop()) ctx[p] && (a[p] = ctx[p]);
+        ctx.counter && (a.onmousedown = ctx.counter);
+        a.href = ctx.url;
+
+        return a;
+    }
+}

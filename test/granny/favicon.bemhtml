@@ -1,0 +1,6 @@
+block favicon, elem icon {
+    tag: 'i',
+    attrs: {
+        style: 'background-position:0 ' + ( -16 * this.ctx.index ) + 'px;'
+    }
+}

@@ -1,0 +1,12 @@
+block navigation, mod 'more-type' tablo {
+
+    elem region, content: {
+        return [
+            applyNext(),
+            {
+                elem: 'more'
+            }
+        ];
+    }
+
+}

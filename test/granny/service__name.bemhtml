@@ -1,0 +1,11 @@
+block service, elem name {
+
+    content: {
+        var ctx = this.ctx,
+            service = ctx.service,
+            serviceName = ctx.name || BEM.I18N('service', service) || service;
+
+        return serviceName;
+    }
+
+}

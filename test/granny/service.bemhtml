@@ -1,0 +1,47 @@
+block service {
+
+    default: {
+        var ctx = this.ctx;
+        this._urlAttrs = this.extend(ctx.urlAttrs, {
+            onmousedown: ctx.counter,
+            href: ctx.url
+        });
+
+        return applyNext(
+            this._url = (ctx.url !== false) && (ctx.url || ''),
+            this._icon = (ctx.icon !== false),
+            this._name = (ctx.name !== false)
+        )
+    }
+
+    content, !this.elem, this._url: {
+        block: 'link',
+        mix: { block: 'service', elem: 'url' },
+        attrs: this._urlAttrs,
+        content: applyNext(this._url = false)
+    }
+
+    content, !this.elem, !this._url: {
+        var c = [];
+        if (this._icon)
+            c.push({
+                block: 'service',
+                elem: 'icon',
+                service: this.ctx.service,
+                mods: this.extend(this.ctx.iconMods, {
+                    type: this.ctx.service
+                })
+            });
+
+        if (this._name)
+            c.push({
+                block: 'service',
+                elem: 'name',
+                service: this.ctx.service,
+                name: this.ctx.name
+            });
+
+        return c;
+    }
+
+}

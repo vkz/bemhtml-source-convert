@@ -1,0 +1,11 @@
+block user, elem name {
+    tag: 'span'
+    content: {
+        var login = this.ctx.login;
+        login.length > 16 + 3 && (login = login.substring(0, 16 - 1) + '…');
+        return [
+            { elem: 'first-letter', tag: 'span', content: login.charAt(0) },
+            login.slice(1)
+        ];
+    }
+}
