@@ -1,0 +1,858 @@
+bash-3.2$ find ../test/granny -name "*.bemhtml" \( -exec sh -c 'echo {}' \; -false -o -execdir ~/Documents/bemhtml-source-convert/bin/bemhtml2bh -c -i {} \; \
+)                                                                                                                                                            
+
+
+../test/granny/arrow.bemhtml
+----------------------------
+Source template:
+block arrow, content: {
+    elem: 'inner',
+    content: [
+        applyNext(),
+        { elem: 'corner', content: { elem: 'triangle' } }
+    ]
+}
+
+Classification object:
+{
+  "c1": "1.1",
+  "c2": "",
+  "c3": "3.3, 3.1"
+}
+
+
+../test/granny/button.bemhtml
+-----------------------------
+Source template:
+block button{
+
+    tag: 'button'
+    this.ctx.url, tag: 'a'
+
+    attrs: {
+
+        // Common attributes
+        var ctx = this.ctx,
+            a = { role: 'button' };
+
+        if (ctx.tabindex) a.tabindex = ctx.tabindex;
+
+        if (this.ctx.url) {
+
+            a.href = ctx.url;
+
+            if (ctx.target) a.target = ctx.target;
+
+            if (this.mods.disabled) a['aria-disabled'] = true;
+
+        } else {
+
+            a.type = ctx.type || 'button';
+
+            for (var i in { 'name': '', 'value': '' })
+                if (ctx[i]) a[i] = ctx[i];
+
+            if (this.mods.disabled) a.disabled = 'disabled';
+        }
+
+        return a;
+
+    }
+
+    this.ctx.pin, mix: [{
+        mods: { pin: this.isFirst() ? 'right' : this.isLast() ? 'left' : 'both' }
+    }]
+
+    this.mods.mode, content: [applyNext(), { elem: 'arrow', tag: 'span' }]
+
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.1, 1.1, 1.2",
+  "c2": "2.1, 2.1, 2.2",
+  "c3": "3.1, 3.1, 3.3, 3.1, 3.3, 3.1"
+}
+
+
+../test/granny/copyright.bemhtml
+Source template:
+block copyright {
+    tag: 'span'
+    mix: { block: 'link' }
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.1"
+}
+
+
+../test/granny/favicon.bemhtml
+Source template:
+block favicon, elem icon {
+    tag: 'i',
+    attrs: {
+        style: 'background-position:0 ' + ( -16 * this.ctx.index ) + 'px;'
+    }
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.2"
+}
+
+
+../test/granny/footer.bemhtml
+Source template:
+block footer, mix: { block: 'clearfix' }
+
+Classification object:
+{
+  "c1": "1.1",
+  "c2": "",
+  "c3": "3.1"
+}
+
+../test/granny/i-bem__i18n.bemhtml
+Source template:
+block i-bem, elem i18n {
+
+    default: {
+        if(!this.ctx) return '';
+
+        var ctx = this.ctx,
+            keyset = ctx.keyset,
+            key = ctx.key,
+            params = ctx.params || {};
+
+        if(!(keyset || key))
+            return '';
+
+        /**
+         * Consider `content` is a reserved param that contains
+         * valid bemjson data
+         */
+        if(ctx.content) {
+            var cnt;
+            params.content = (cnt = [],
+                apply(this._buf = cnt, this._mode = '',
+                    this.ctx = ctx.content), cnt.join(''));
+        }
+
+        this._buf.push(BEM.I18N(keyset, key, params));
+    }
+
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.2",
+  "c2": "",
+  "c3": "3.3"
+}
+
+
+../test/granny/input.bemhtml
+Source template:
+block input {
+    tag: 'span'
+
+    mix: [{ block: 'clearfix' }]
+
+    default: {
+        applyNext(
+            this._attrs = this.ctx.attrs,
+            this.ctx.attrs = null
+        );
+    }
+
+    content: {
+        var attrs = this._attrs || {};
+
+        attrs.id || (attrs.id = this.generateId());
+
+        return {
+            elem: 'control',
+            attrs: attrs
+        }
+    }
+
+    elem control, tag: 'input'
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.1, 3.3, 3.3, 3.1"
+}
+
+
+../test/granny/link.bemhtml
+Source template:
+block link {
+    tag: 'a'
+    attrs: {
+        var ctx = this.ctx,
+            a = {},
+            props = ['title', 'target'], p;
+
+        while (p = props.pop()) ctx[p] && (a[p] = ctx[p]);
+        ctx.counter && (a.onmousedown = ctx.counter);
+        a.href = ctx.url;
+
+        return a;
+    }
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.3"
+}
+
+
+../test/granny/logo.bemhtml
+Source template:
+block logo {
+
+    !this.elem, content: [
+        {
+            elem: 'link',
+            url: this.ctx.url,
+            content: {
+                elem: 'image',
+                alt: this.ctx.alt,
+                url: this.ctx.image
+            }
+        },
+        this.ctx.content
+    ]
+
+    elem link {
+        tag: 'a'
+        attrs: { href: this.ctx.url }
+    }
+
+    elem image {
+        tag: 'img'
+        attrs: {
+            alt: this.ctx.alt || '',
+            src: this.ctx.url
+        }
+    }
+
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.2, 1.1, 1.1, 1.2, 1.2",
+  "c2": "2.2",
+  "c3": "3.2, 3.1, 3.2, 3.1, 3.2"
+}
+
+
+../test/granny/navigation.bemhtml
+Source template:
+block navigation, default: applyNext(this._moreCounter = this.ctx.moreCounter);
+
+block navigation, elem more, attrs: {
+    var a = applyNext();
+        a = this.extend(a, {
+            onmousedown: this._moreCounter
+        })
+    return a;
+}
+
+block navigation, elem item, default: {
+
+    var serviceAliases = {
+            'encyc': {
+                service: 'slovari'
+            },
+            'serp': {
+                service: 'www'
+            },
+            // TODO: В данных допущена опечатка. Из-за нехорошей верстки, несуществующие типы сервисов вызывают ошибку и валят страницу. Чтобы этого избежать,
+ на время тут поставлена эта заплатка                                                                                                                        
+            'sloavri': {
+                service: 'slovari'
+            },
+            'ticket': {
+                service: 'avia'
+            },
+            'web': {
+                service: 'www'
+            }
+        },
+        currentService = serviceAliases[this.ctx.service];
+
+    return applyCtx(this.extend(this.ctx, currentService));
+
+}
+
+block navigation {
+
+    attrs: {
+        role: 'navigation',
+        'aria-label': BEM.I18N('navigation', 'search-also')
+    }
+
+    elem item {
+
+        attrs: {
+            var a = applyNext() || {};
+
+            if(this.ctx.selected) {
+                /* Отменяем role="listitem" для выделенного элемента,
+                 * чтобы на него не переходить и не учитывать его
+                 * в количестве элементов списка.
+                 *
+                 * aria-hidden не работает на listitem. */
+                a.role = 'link';
+                a['aria-hidden'] = true;
+            } else {
+                a.role = 'listitem';
+            }
+
+            return a;
+        }
+
+        mix: [{
+            elemMods: {
+                name: this.ctx.service,
+                state: this.ctx.selected ? 'selected' : null
+            }
+        }]
+
+        content: {
+            block: 'service',
+            service: this.ctx.service,
+            iconMods: { self: '40' },
+            name: this.ctx.name,
+            mods: this.ctx.selected ? false : { hoverable: 'yes' },
+            lang: this.ctx.lang,
+            url: this.ctx.selected ? false : this.ctx.url,
+            urlAttrs: {
+                target: this.ctx.target,
+                tabindex: 0 /* Opera 12 */
+            },
+            counter: this.ctx.counter
+        }
+
+    }
+
+    elem region {
+        attrs: {
+            role: 'list'
+        }
+    }
+
+    elem more {
+
+        attrs: {
+            role: 'listitem'
+        }
+
+        mix: [{ elem: 'item' }]
+
+        content: [
+            {
+                elem: 'more-label',
+                mix: [{
+                    block: 'service',
+                    mods: { hoverable: 'yes' }
+                }],
+                content: {
+                    block: 'service',
+                    elem: 'icon'
+                }
+            }
+        ]
+
+    }
+
+    content: {
+        return {
+            elem: 'region',
+            content: this.ctx.content
+        };
+    }
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.2, 1.1, 1.2, 1.1, 1.1, 1.1, 1.2, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.3, 3.2, 3.3, 3.3, 3.1, 3.3, 3.2, 3.2, 3.1, 3.1, 3.1, 3.1, 3.3"
+}
+
+
+../test/granny/navigation_more-type_tablo.bemhtml
+Source template:
+block navigation, mod 'more-type' tablo {
+
+    elem region, content: {
+        return [
+            applyNext(),
+            {
+                elem: 'more'
+            }
+        ];
+    }
+
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.2",
+  "c2": "",
+  "c3": "3.3"
+}
+
+
+../test/granny/page.bemhtml
+Source template:
+block page {
+
+    default: {
+        var ctx = this.ctx;
+        applyCtx([
+            ctx.doctype || '<!DOCTYPE html>',
+            {
+                tag: 'html',
+                cls: 'ua_js_no ua_css_standard',
+                //attrs: { lang: this['i-global'].lang || 'ru' },
+                content: [
+                    {
+                        elem: 'head',
+                        content: [
+                            { tag: 'meta', attrs: { charset: 'utf-8' } },
+                            { tag: 'title', content: ctx.title },
+                            { block: 'ua' },
+                            ctx.favicon ? {
+                                elem: 'favicon',
+                                url: ctx.favicon
+                            } : '',
+                            ctx.meta,
+                            ctx.head
+                        ]
+                    },
+                    this.extend(ctx, { elem: 'body' })
+                ]
+            }
+        ]);
+    }
+
+    elem body {
+        tag: 'body'
+        default: {
+            this.ctx.elem = null;
+            applyNext();
+        }
+    }
+
+    elem head {
+        bem: false
+        tag: 'head'
+    }
+
+    elem favicon {
+        bem: false
+        tag: 'link'
+        attrs: { rel: 'shortcut icon', href: this.ctx.url }
+    }
+
+    elem js {
+        bem: false
+        tag: 'script'
+        attrs, this.ctx.url: { src: this.ctx.url }
+    }
+
+    elem css {
+        bem: false
+        tag: 'style'
+
+        this.ctx.url {
+            tag: 'link',
+            attrs: { rel: 'stylesheet', href: this.ctx.url }
+        }
+    }
+
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.2, 1.1, 1.1, 1.2, 1.1, 1.1, 1.1, 1.2, 1.1, 1.1, 1.1, 1.2, 1.1, 1.1, 1.1, 1.1, 1.2, 1.2, 1.2",
+  "c2": "2.1, 2.1",
+  "c3": "3.3, 3.1, 3.3, 3.1, 3.1, 3.1, 3.1, 3.2, 3.1, 3.1, 3.2, 3.1, 3.1, 3.1, 3.2"
+}
+
+
+../test/granny/pager__group.bemhtml
+Source template:
+block pager, elem group, tag: 'span'
+
+Classification object:
+{
+  "c1": "1.1",
+  "c2": "",
+  "c3": "3.1"
+}
+
+
+../test/granny/search.bemhtml
+Source template:
+block 'search' {
+
+    tag: 'form'
+
+    attrs: {
+        action: this.ctx.action || '/',
+        role: 'search'
+    }
+
+    content: {
+        elem: 'table',
+        content: {
+            elem: 'row',
+            content: this.ctx.content
+        }
+    }
+
+    elem table, tag: 'table'
+
+    elem row {
+        tag: 'tr',
+        bem: false
+    }
+
+    elem cell, tag: 'td'
+
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.2, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.2, 3.2, 3.1, 3.1, 3.1, 3.1"
+}
+
+
+../test/granny/serp-item__passage.bemhtml
+Source template:
+block serp-item, elem passage {
+    tag: 'b'
+    content: '... '
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.1"
+}
+
+
+../test/granny/serp-item__title.bemhtml
+Source template:
+block serp-item {
+    elem title, tag: 'h2'
+
+    elem title-link, default: {
+        var ctx = this.ctx;
+        delete ctx.elem;
+        applyCtx(this.extend(ctx, {
+            block: 'link',
+            mix: { block: this.block, elem: this.elem }
+        }));
+    }
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.3"
+}
+
+
+../test/granny/serp-sitelinks.bemhtml
+Source template:
+block serp-sitelinks {
+    elem info, tag: 'span'
+    elem item, tag: 'span'
+    elem link, default: {
+        var ctx = this.ctx;
+        delete ctx.elem;
+        applyCtx(this.extend(ctx, {
+            block: 'link',
+            mix: { block: this.block, elem: this.elem }
+        }));
+    }
+
+    mod layout table {
+        tag: 'table'
+        content: { tag: 'tr', content: applyNext() }
+        elem cell, tag: 'td'
+    }
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.1, 1.1, 1.1, 1.2, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.1, 3.3, 3.1, 3.3, 3.1, 3.1"
+}
+
+
+../test/granny/serp-url.bemhtml
+Source template:
+block serp-url {
+    tag, ~['mark', 'item', 'text'].indexOf(this.elem): 'span'
+
+    elem link, default: {
+        var ctx = this.ctx;
+        delete ctx.elem;
+        applyCtx(this.extend(ctx, {
+            block: 'link',
+            mix: { block: this.block, elem: this.elem }
+        }));
+    }
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.2",
+  "c2": "2.2",
+  "c3": "3.1, 3.3"
+}
+
+
+../test/granny/service.bemhtml
+Source template:
+block service {
+
+    default: {
+        var ctx = this.ctx;
+        this._urlAttrs = this.extend(ctx.urlAttrs, {
+            onmousedown: ctx.counter,
+            href: ctx.url
+        });
+
+        return applyNext(
+            this._url = (ctx.url !== false) && (ctx.url || ''),
+            this._icon = (ctx.icon !== false),
+            this._name = (ctx.name !== false)
+        )
+    }
+
+    content, !this.elem, this._url: {
+        block: 'link',
+        mix: { block: 'service', elem: 'url' },
+        attrs: this._urlAttrs,
+        content: applyNext(this._url = false)
+    }
+
+    content, !this.elem, !this._url: {
+        var c = [];
+        if (this._icon)
+            c.push({
+                block: 'service',
+                elem: 'icon',
+                service: this.ctx.service,
+                mods: this.extend(this.ctx.iconMods, {
+                    type: this.ctx.service
+                })
+            });
+
+
+            c.push({
+                block: 'service',
+                elem: 'name',
+                service: this.ctx.service,
+                name: this.ctx.name
+            });
+
+        return c;
+    }
+
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.2",
+  "c2": "2.2, 2.3, 2.2, 2.3",
+  "c3": "3.3, 3.3, 3.1, 3.3"
+}
+
+
+../test/granny/service__name.bemhtml
+Source template:
+block service, elem name {
+
+    content: {
+        var ctx = this.ctx,
+            service = ctx.service,
+            serviceName = ctx.name || BEM.I18N('service', service) || service;
+
+        return serviceName;
+    }
+
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.2",
+  "c2": "",
+  "c3": "3.3"
+}
+
+
+../test/granny/ua.bemhtml
+Source template:
+block ua {
+    tag: 'script',
+    bem: false,
+    content: [
+        '(function(d,e,c,r){',
+            'e=d.documentElement;',
+            'c="className";',
+            'r="replace";',
+            'e[c]=e[c][r]("ua_js_no","ua_js_yes");',
+            'if(d.compatMode!="CSS1Compat")',
+            'e[c]=e[c][r]("ua_css_standart","ua_css_quirks")',
+        '})(document);'
+    ].join('')
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.1, 3.1"
+}
+
+
+../test/granny/user.bemhtml
+!!!
+!!! attrs: { return { href: this.ctx.url }; } 
+!!! parsed as custom js (3.3) which it is 
+!!! silly template, should've been just
+!!! attrs: { href: this.ctx.url }
+!!!
+Source template:
+block user {
+    tag: 'a'
+    attrs: {
+        return { href: this.ctx.url };
+    }
+
+    elem enter, tag: 'span'
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.3, 3.1"
+}
+
+
+../test/granny/user__icon.bemhtml
+!!!
+!!! same as above
+!!!
+Source template:
+block user, elem icon {
+    tag: 'span'
+    attrs: {
+        return {
+            style: [
+                'background-image:url(',
+                'http://avatars.yandex.net',
+                '/get-yapic/',
+                this.ctx.uid,
+                '/islands-middle',
+                '?rnd=',
+                (+new Date),
+                ')'
+            ].join('')
+        };
+    }
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.3"
+}
+
+
+../test/granny/user__name.bemhtml
+Source template:
+block user, elem name {
+    tag: 'span'
+    content: {
+        var login = this.ctx.login;
+        login.length > 16 + 3 && (login = login.substring(0, 16 - 1) + '…');
+        return [
+            { elem: 'first-letter', tag: 'span', content: login.charAt(0) },
+            login.slice(1)
+        ];
+    }
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.1, 3.3"
+}
+
+
+../test/granny/video-thumb.bemhtml
+Source template:
+block video-thumb {
+
+    attrs: {
+        style: 'background-image: url(' + this.ctx.bgImg + ')'
+    }
+
+    content: [
+        this.ctx.content,
+        { elem: 'play' },
+        {
+            elem: 'duration',
+            content: this.ctx.duration
+        }
+    ]
+
+    elem play, tag: 'i'
+}
+
+Classification object:
+{
+  "c1": "1.1, 1.1, 1.1, 1.2",
+  "c2": "",
+  "c3": "3.2, 3.2, 3.1"
+}
+
+
+../test/granny/video-thumb__duration.bemhtml
+Source template:
+block video-thumb, elem duration, tag: 'span'
+
+Classification object:
+{
+  "c1": "1.1",
+  "c2": "",
+  "c3": "3.1"
+}
