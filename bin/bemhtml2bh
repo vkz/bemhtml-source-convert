@@ -56,6 +56,9 @@ require('coa').Cmd()
         .output()
         .end()
     .act(function(options) {
-      return require('../lib/convert').run(options);
+        // PIPE when reading from stdin, TTY when reading from file
+        // console.log(process.binding ('tty_wrap').guessHandleType (0));
+        return require('../lib/convert')
+            .run(options);
     })
     .run();
