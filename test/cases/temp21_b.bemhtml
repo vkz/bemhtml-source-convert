@@ -1,0 +1,7 @@
+block button {
+    tag: 'button'
+    typeof this.ctx.url !== 'undefined' {
+        tag: 'a'
+        attrs: {href: this.ctx.url}
+    }
+}

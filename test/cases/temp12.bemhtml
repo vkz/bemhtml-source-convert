@@ -1,0 +1,5 @@
+block button {
+    tag: 'button'
+    content: 'text'
+    this._bla && this._bla === 'bla' { tag: 'a'}
+}

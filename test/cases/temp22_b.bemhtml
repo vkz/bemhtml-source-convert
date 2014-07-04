@@ -1,0 +1,3 @@
+block button {
+    tag, ~['mark', 'item', 'text'].indexOf(this.elem): 'span'
+}

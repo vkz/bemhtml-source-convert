@@ -1,0 +1,11 @@
+block logo {
+    this.ctx.url, tag: 'a'
+    attrs {
+        lo.isEmpty(this) || true: {role: 'logo'}
+        this.ctx.url: {
+            var ctx = this.ctx,
+            p = applyNext(),
+            a = { href: ctx.url };
+            return this._.extend(p, a);}
+    }
+}

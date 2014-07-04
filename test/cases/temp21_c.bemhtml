@@ -1,0 +1,8 @@
+block button {
+    tag: 'button'
+    this.ctx.url {
+        tag: 'a'
+        attrs: {href: this.ctx.url}
+        this._bla, attrs: {href: this._bla}
+    }
+}

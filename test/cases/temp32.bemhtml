@@ -1,0 +1,4 @@
+block logo {
+    tag: 'img'
+    this.ctx.url, attrs: ({alt: 'logo', href: this.ctx.url})
+}

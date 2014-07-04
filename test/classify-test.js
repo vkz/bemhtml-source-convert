@@ -8,116 +8,31 @@ var convert = require('..'),
     compat = require('bemhtml-compat'),
     lo = require('lodash'),
     assert = require('assert'),
+    fs = require('fs'),
+    path = require('path'),
     bemparser = require('../lib/ometa/bemhtml').BEMHTMLParser,
     testingMsg = '\n' +
         '**********************\n' +
         'Classifying templates.\n' +
         '**********************\n';
 
-var temp11 = stx.get(function () {/*
-   block button, tag: 'button'
-*/});
-
-var  temp12 = stx.get(function () {/*
-   block button {
-       tag: 'button'
-       content: 'text'
-       this._bla && this._bla === 'bla' { tag: 'a'}
-   }
-*/});
-
-var temp21_a = stx.get(function () {/*
-   block button {
-       tag: 'button'
-       this.ctx.url {
-                      tag: 'a'
-                      attrs: {href: this.ctx.url}
-                     }
-   }
-*/});
-
-var temp21_b = stx.get(function () {/*
-   block button {
-       tag: 'button'
-       typeof this.ctx.url !== 'undefined' {
-                      tag: 'a'
-                      attrs: {href: this.ctx.url}
-                     }
-   }
-*/});
-
-// ??? thould this be 3.2 or 3.3 ???
-var temp21_c = stx.get(function () {/*
-   block button {
-       tag: 'button'
-       this.ctx.url {
-                      tag: 'a'
-                      attrs: {href: this.ctx.url}
-                      this._bla, attrs: {href: this._bla}
-                     }
-   }
-*/});
-
-var temp22_a = stx.get(function(){/*
-    block button {
-        this.elem, tag: this.ctx.elem
-        this.elem, this.ctx.id, attrs: { id: this.ctx.id  }
-    }
-*/});
-
-var temp22_b = stx.get(function(){/*
-    block button {
-        tag, ~['mark', 'item', 'text'].indexOf(this.elem): 'span'
-    }
-*/});
-
-var temp32 = stx.get(function () {/*
-block logo {
-  tag: 'img'
-  this.ctx.url, attrs: ({alt: 'logo', href: this.ctx.url})
-}*/});
-
-var temp33_a = stx.get(function () {/*
-    block b-inner, default: applyCtx({ block: 'b-wrapper',
-                                       content: this.ctx })
-*/});
-
-var temp33_b = stx.get(function () {/*
-block b1 {
-  content: [applyNext(), 'text2']
- }
-*/});
-
-// Thinking this should classify into 2.4 (arb js in predicate), but
-// not sure how to achieve this
-var temp33_c = stx.get(function () {/*
-    block logo {
-        this.ctx.url, tag: 'a'
-        attrs {
-            lo.isEmpty(this) || true: {role: 'logo'}
-            this.ctx.url: {
-                var ctx = this.ctx,
-                    p = applyNext(),
-                    a = { href: ctx.url };
-                return this._.extend(p, a);}
-        }
-}
-*/});
-
 describe(testingMsg, function (){
 
-    var templates = {
-        t11: temp11,
-        t12: temp12,
-        t21a: temp21_a,
-        t21b: temp21_b,
-        t22a: temp22_a,
-        t22b: temp22_b,
-        t32: temp32,
-        t33a: temp33_a,
-        t33b: temp33_b,
-        t33c: temp33_c
-    };
+    var projectRoot = path.resolve(path.join(__dirname, '..')),
+        casesRoot = path.join(projectRoot, 'test', 'cases'),
+        files = fs.readdirSync(casesRoot),
+        templates = lo.map(files,
+                           function(f) {
+                               return path.basename(f, '.bemhtml');
+                           });
+
+    files = lo(files)
+        .map(function (f) {return path.join(casesRoot, f);})
+        .map(function (f) {return fs.readFileSync(f, 'utf-8');})
+        .value();
+
+    templates = lo.zipObject(templates,
+                             files);
 
     function haveClass (classObj, className) {
         className = JSON.stringify(className); // in case its a number
@@ -132,12 +47,12 @@ describe(testingMsg, function (){
         return lo.first(stx.classify(template));
     };
 
-    describe(templates.t11, function () {
+    describe(templates.temp11, function () {
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
-                function () { classified = classify (templates.t11); }
+                function () { classified = classify (templates.temp11); }
             );
         });
 
@@ -155,12 +70,12 @@ describe(testingMsg, function (){
 
     });
 
-    describe(templates.t12, function (){
+    describe(templates.temp12, function (){
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
-                function () { classified = classify (templates.t12); }
+                function () { classified = classify (templates.temp12); }
             );
         });
 
@@ -180,13 +95,13 @@ describe(testingMsg, function (){
 
     });
 
-    describe(templates.t21a, function (){
+    describe(templates.temp21_a, function (){
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
                 function () {
-                    classified = classify (templates.t21a);
+                    classified = classify (templates.temp21_a);
                 }
             );
         });
@@ -207,13 +122,13 @@ describe(testingMsg, function (){
 
     });
 
-    describe(templates.t21b, function (){
+    describe(templates.temp21_b, function (){
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
                 function () {
-                    classified = classify (templates.t21b);
+                    classified = classify (templates.temp21_b);
                 }
             );
         });
@@ -228,13 +143,13 @@ describe(testingMsg, function (){
 
     });
 
-    describe(templates.t22a, function (){
+    describe(templates.temp22_a, function (){
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
                 function () {
-                    classified = classify (templates.t22a);
+                    classified = classify (templates.temp22_a);
                 }
             );
         });
@@ -249,13 +164,13 @@ describe(testingMsg, function (){
 
     });
 
-    describe(templates.t22b, function (){
+    describe(templates.temp22_b, function (){
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
                 function () {
-                    classified = classify (templates.t22b);
+                    classified = classify (templates.temp22_b);
                 }
             );
         });
@@ -271,13 +186,13 @@ describe(testingMsg, function (){
     });
 
 
-    describe(templates.t32, function (){
+    describe(templates.temp32, function (){
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
                 function () {
-                    classified = classify (templates.t32);
+                    classified = classify (templates.temp32);
                 }
             );
         });
@@ -291,13 +206,13 @@ describe(testingMsg, function (){
     });
 
 
-    describe(templates.t33c, function (){
+    describe(templates.temp33_c, function (){
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
                 function () {
-                    classified = classify (templates.t33c);
+                    classified = classify (templates.temp33_c);
                 }
             );
         });
@@ -308,13 +223,13 @@ describe(testingMsg, function (){
            });
     });
 
-    describe(templates.t33a, function (){
+    describe(templates.temp33_a, function (){
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
                 function () {
-                    classified = classify (templates.t33a);
+                    classified = classify (templates.temp33_a);
                 }
             );
         });
@@ -325,13 +240,13 @@ describe(testingMsg, function (){
            });
     });
 
-    describe(templates.t33b, function (){
+    describe(templates.temp33_b, function (){
         var classified;
 
         it('Should be parsed and classified', function(){
             assert.doesNotThrow(
                 function () {
-                    classified = classify (templates.t33b);
+                    classified = classify (templates.temp33_b);
                 }
             );
         });
