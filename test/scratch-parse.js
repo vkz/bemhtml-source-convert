@@ -11,6 +11,7 @@ var convert = require('..'),
     path = require('path'),
     bemparser = require('../lib/ometa/bemhtml').BEMHTMLParser,
     bemtoxjst = require('../lib/ometa/bemhtml').BEMHTMLToXJST,
+    parser = require('../lib/ometa/bemhtml-bh').Parser,
     classifier = require('../lib/ometa/bemhtml-bh').Classifier
     ;
 
@@ -31,7 +32,8 @@ templates = lo(lo.zipObject (templates,
                              files));
 
 function parse(src) {
-    return bemparser.matchAll(src, 'topLevel');
+//    return bemparser.matchAll(src, 'topLevel');
+    return parser.matchAll(src, 'topLevel');
 }
 
 
@@ -81,3 +83,5 @@ var diff = lo(newc).
         value();
 
 diff;
+
+parser.matchAll("this.ctx", 'asgnExpr');
