@@ -36,7 +36,8 @@ function parse(src) {
 
 
 function classify(src) {
-    return classifier.match(parse(src), 'topLevel');
+//    return classifier.match(parse(src), 'topLevel');
+    return stx.classify2(src);
 }
 
 
