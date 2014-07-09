@@ -79,9 +79,13 @@ describe(testingMsg, function (){
             );
         });
 
-        it('Should be classified into 1.2 and 2.3',
+        it('Should be classified into 1.2',
            function () {
                assert.ok(haveClass(classified, 1.2));
+           });
+
+        it('Should be classified into 2.3',
+           function () {
                assert.ok(haveClass(classified, 2.3));
                assert.ok(doesNot(haveClass (classified, 2.1)));
                assert.ok(doesNot(haveClass (classified, 2.2)));
@@ -106,9 +110,13 @@ describe(testingMsg, function (){
             );
         });
 
-        it('Should be classified into 1.2 and 2.1',
+        it('Should be classified into 1.2',
            function () {
                assert.ok(haveClass(classified, 1.2));
+           });
+
+        it('Should be classified into 2.1',
+           function () {
                assert.ok(haveClass(classified, 2.1));
                assert.ok(doesNot(haveClass (classified, 2.2)));
                assert.ok(doesNot(haveClass (classified, 2.3)));
@@ -133,9 +141,13 @@ describe(testingMsg, function (){
             );
         });
 
-        it('Should be classified into 1.2 and 2.1',
+        it('Should be classified into 1.2',
            function () {
                assert.ok(haveClass(classified, 1.2));
+           });
+
+        it('Should be classified into 2.1',
+           function () {
                assert.ok(haveClass(classified, 2.1));
                assert.ok(doesNot(haveClass (classified, 2.2)));
                assert.ok(doesNot(haveClass (classified, 2.3)));
@@ -154,10 +166,13 @@ describe(testingMsg, function (){
             );
         });
 
-        it('Should be classified into 1.2, 2.1 and 2.2',
+        it('Should be classified into 1.2',
            function () {
                assert.ok(haveClass(classified, 1.2));
-               assert.ok(haveClass(classified, 2.1));
+           });
+
+        it('Should be classified into 2.2',
+           function () {
                assert.ok(haveClass(classified, 2.2));
                assert.ok(doesNot(haveClass (classified, 2.3)));
            });
@@ -175,9 +190,13 @@ describe(testingMsg, function (){
             );
         });
 
-        it('Should be classified into 1.2 and 2.2',
+        it('Should be classified into 1.2',
            function () {
                assert.ok(haveClass(classified, 1.2));
+           });
+
+        it('Should be classified into 2.2',
+           function () {
                assert.ok(haveClass(classified, 2.2));
                assert.ok(doesNot(haveClass (classified, 2.1)));
                assert.ok(doesNot(haveClass (classified, 2.3)));
