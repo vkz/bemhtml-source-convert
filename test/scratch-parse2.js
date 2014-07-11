@@ -34,50 +34,29 @@ function parse(src) {
 
 
 function classify(src) {
-//    return classifier.match(parse(src), 'topLevel');
-    return stx.classify2(src);
+   return classifier.match(parse(src), 'topLevel');
+//    return stx.classify2(src);
 }
 
 
-var newc = templates.
-        mapValues(classify).
-        mapValues(function (v) {
-            v = lo(lo.first (v)).
-                pick(['c1']).
-                mapValues(function (c) {return lo.isEmpty(c) ? c : [lo.max(c)];}).
-                value();
-            return v;}).
-        value();
-
-var oldc = templates.
-        mapValues(stx.classify).
-        mapValues(function (v) {
-            v = lo(lo.first (v)).
-                pick(['c1']).
-                mapValues(function (c) {return lo.isEmpty(c) ? c : [lo.max(c)];}).
-                value();
-            return v;}).
-        value();
+// var temp = stx.get(function () {/*
+//     block button {
+//         tag: 'button'
+//         content: 'text'
+//         custommode: applyNext()
+//         this._bla && this._bla === 'bla' { tag: 'a'}
+//     }
+// */});
 
 var temp = stx.get(function () {/*
-    block button {
-        tag: 'button'
-        content: 'text'
-        custommode: applyNext()
-        this._bla && this._bla === 'bla' { tag: 'a'}
-    }
-*/});
-
-// temp22_b and temp33_b classified into 1.1 intstead of 1.2
-// nesting information gets lost during parsing, don't think it matters
-var diff = lo(newc).
-        mapValues(function(c, temp) {
-            return {'new': c.c1,
-                    'old': oldc[temp].c1};
-        }).
-        pick(function(c, temp) {return !lo.isEqual(c.new, c.old);}).
-        value();
-
-diff;
+ block button {
+    this.block === 'button': {'tag' : 'button'}
+}*/});
 
 //parser.matchAll("this.ctx", 'asgnExpr');
+//parse(temp);
+classify(temp);
+//parse(temp);
+
+//utils.pp(bemparser.matchAll(temp, 'topLevel'));
+//bemparser.matchAll("this._bla && this._bla === 'bla'", 'topLevel');
