@@ -92,7 +92,8 @@ block button, tag: 'button'
 //parser.matchAll("this.ctx", 'asgnExpr');
 //parse(temp);
 var ast = classify(temp);
-console.log(util.inspect (ast, {depth : 300}));
+//console.log(util.inspect (ast, {depth : 300}));
+utils.pp(ast);
 
 //ast.forEach(function(t){ utils.pp (t[2]);});
 //parse(temp);
