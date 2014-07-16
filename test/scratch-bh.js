@@ -104,7 +104,6 @@ var input = {block : 'input',
         });
 
         bh.match('input__control', function(ctx, json) {
-            utils.pp(json);
             ctx.attr('value', ctx.tParam('value'));
         });
     },
