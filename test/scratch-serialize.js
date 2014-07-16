@@ -40,10 +40,19 @@ function b(code) {
 
 }
 
+// var temp = stx.get(function() {/*
+//     block list {
+//         elem item, tag: 'li'
+//     }
+// */});
+
+
+// var temp = stx.get(function() {/*
+// block input, mod theme black, elem hint, tag: a
+// */});
+
 var temp = stx.get(function() {/*
-    block list {
-        elem item, tag: 'li'
-    }
+block input, mod theme black, elem hint, elemMod visibility visible, tag: a
 */});
 
 var xast = stx.parse(temp);
@@ -54,4 +63,5 @@ var code = serializer.match (xast, 'topLevel');
 //escodegen.generate(esprima.parse ('function (){return 42;}'));
 //esprima.parse('function func() {};');
 
-b(code);
+code;
+//b(code);
