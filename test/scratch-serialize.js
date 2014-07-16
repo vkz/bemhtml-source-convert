@@ -31,6 +31,15 @@ function parse(src) {
     return bemparser.matchAll(src, 'topLevel');
 }
 
+// beautify and print using my prettyPrinter
+function b(code) {
+    var stream = uglify.OutputStream({beautify: true });
+    var uast = uglify.parse (code);
+    code = uast.print(stream);
+    pp(stream.toString());
+
+}
+
 var temp = stx.get(function() {/*
     block list {
         elem item, tag: 'li'
@@ -45,7 +54,4 @@ var code = serializer.match (xast, 'topLevel');
 //escodegen.generate(esprima.parse ('function (){return 42;}'));
 //esprima.parse('function func() {};');
 
-var stream = uglify.OutputStream({beautify: true });
-var uast = uglify.parse (code);
-code = uast.print(stream);
-console.log(stream.toString());
+b(code);
