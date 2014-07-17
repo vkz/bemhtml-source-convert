@@ -63,5 +63,4 @@ var code = serializer.match (xast, 'topLevel');
 //escodegen.generate(esprima.parse ('function (){return 42;}'));
 //esprima.parse('function func() {};');
 
-code;
-//b(code);
+b(code);
