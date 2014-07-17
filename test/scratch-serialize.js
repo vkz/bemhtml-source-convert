@@ -27,19 +27,6 @@ files = lo(files).
 templates = lo.zipObject (templates,
                           files);
 
-function parse(src) {
-    return bemparser.matchAll(src, 'topLevel');
-}
-
-// beautify and print using my prettyPrinter
-function b(code) {
-    var stream = uglify.OutputStream({beautify: true });
-    var uast = uglify.parse (code);
-    code = uast.print(stream);
-    pp(stream.toString());
-
-}
-
 // var temp = stx.get(function() {/*
 //     block list {
 //         elem item, tag: 'li'
@@ -48,19 +35,17 @@ function b(code) {
 
 
 // var temp = stx.get(function() {/*
-// block input, mod theme black, elem hint, tag: a
+// block input, mod theme black, elem hint, tag: 'a'
 // */});
 
 var temp = stx.get(function() {/*
-block input, mod theme black, elem hint, elemMod visibility visible, tag: a
+block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
 */});
 
-var xast = stx.parse(temp);
-pp(xast);
+stx.toBh(temp);
 
-var code = serializer.match (xast, 'topLevel');
-//escodegen.generate(esprima.parse (code));
-//escodegen.generate(esprima.parse ('function (){return 42;}'));
-//esprima.parse('function func() {};');
+// var tt = stx.parse('ctx.tag(b)');
 
-b(code);
+//var tt = stx.parse('function(){b}()');
+
+// serializer.matchAll(tt, 'trans');
