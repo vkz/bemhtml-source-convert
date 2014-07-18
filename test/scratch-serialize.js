@@ -38,14 +38,21 @@ templates = lo.zipObject (templates,
 // block input, mod theme black, elem hint, tag: 'a'
 // */});
 
+// var temp = stx.get(function() {/*
+// block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
+// */});
+
+
 var temp = stx.get(function() {/*
-block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
+block button {
+    tag: 'button'
+    content: 'text'
+}
 */});
 
-stx.toBh(temp);
-
 // var tt = stx.parse('ctx.tag(b)');
-
 //var tt = stx.parse('function(){b}()');
-
 // serializer.matchAll(tt, 'trans');
+
+//pp(stx.parse(temp));
+stx.toBh(temp);
