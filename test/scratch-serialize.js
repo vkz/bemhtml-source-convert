@@ -87,7 +87,7 @@ block button {
 }
 */});
 
-// var tt = stx.parse('ctx.tag(b)');
+// var tt = stx.parse('ctx.tag(a, b)');
 //var tt = stx.parse('function(){b}()');
 // serializer.matchAll(tt, 'trans');
 
