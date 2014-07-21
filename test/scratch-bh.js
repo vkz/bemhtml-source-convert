@@ -78,36 +78,36 @@ var convert = require('..'),
 //     tapply = bh.tohtml(template);
 
 
-// /** param */
-// var input = {block : 'search',
-//              action : 'sparta'
-//             },
-//     templateSource = function(bh) {
-//         bh.match('search', function(ctx) {
-//             ctx.attr('action', ctx.param('action') || '/');
-//         });
-//     },
-//     template = bh.get(templateSource),
-//     tapply = bh.tohtml(template);
-
-
-/** tParam */
-var input = {block : 'input',
-             value : 'sparta'
+/** param */
+var input = {block : 'search',
+             action : 'sparta'
             },
     templateSource = function(bh) {
-        bh.match('input', function(ctx, json) {
-            ctx.content({
-                elem: 'control'
-            }, true);
-            ctx.tParam('value', ctx.param('value'));
-        });
-
-        bh.match('input__control', function(ctx, json) {
-            ctx.attr('value', ctx.tParam('value'));
+        bh.match('search', function(ctx) {
+            ctx.attr('action', ctx.param('action') || '/');
         });
     },
     template = bh.get(templateSource),
     tapply = bh.tohtml(template);
+
+
+// /** tParam */
+// var input = {block : 'input',
+//              value : 'sparta'
+//             },
+//     templateSource = function(bh) {
+//         bh.match('input', function(ctx, json) {
+//             ctx.content({
+//                 elem: 'control'
+//             }, true);
+//             ctx.tParam('value', ctx.param('value'));
+//         });
+
+//         bh.match('input__control', function(ctx, json) {
+//             ctx.attr('value', ctx.tParam('value'));
+//         });
+//     },de
+//     template = bh.get(templateSource),
+//     tapply = bh.tohtml(template);
 
 tapply(input);
