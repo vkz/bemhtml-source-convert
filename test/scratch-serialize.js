@@ -27,11 +27,11 @@ files = lo(files).
 templates = lo.zipObject (templates,
                           files);
 
-// var temp = stx.get(function() {/*
-//     block list {
-//         elem item, tag: 'li'
-//     }
-// */});
+var temp = stx.get(function() {/*
+    block list {
+        elem item, tag: 'li'
+    }
+*/});
 
 
 // var temp = stx.get(function() {/*
@@ -43,13 +43,13 @@ templates = lo.zipObject (templates,
 // */});
 
 
-var temp = stx.get(function() {/*
-block button {
-    tag: 'button'
-    content: this.ctx
-    this._bla && this.ctx.url { tag: 'a' }
-}
-*/});
+// var temp = stx.get(function() {/*
+// block button {
+//     tag: 'button'
+//     content: this.ctx
+//     this._bla && this.ctx.url { tag: 'a' }
+// }
+// */});
 
 // var temp = stx.get(function() {/*
 // block button {
