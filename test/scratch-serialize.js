@@ -27,11 +27,11 @@ files = lo(files).
 templates = lo.zipObject (templates,
                           files);
 
-var temp = stx.get(function() {/*
-    block list {
-        elem item, tag: 'li'
-    }
-*/});
+// var temp = stx.get(function() {/*
+//     block list {
+//         elem item, tag: 'li'
+//     }
+// */});
 
 
 // var temp = stx.get(function() {/*
@@ -42,7 +42,6 @@ var temp = stx.get(function() {/*
 // block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
 // */});
 
-
 // var temp = stx.get(function() {/*
 // block button {
 //     tag: 'button'
@@ -51,16 +50,16 @@ var temp = stx.get(function() {/*
 // }
 // */});
 
-// var temp = stx.get(function() {/*
-// block button {
-//     tag: 'button'
-//     this.ctx.url {
-//         tag: 'a'
-//         attrs: {href: this.ctx.url}
-//         this._bla, attrs: {href: this._bla}
-//     }
-// }
-// */});
+var temp = stx.get(function() {/*
+block button {
+    tag: 'button'
+    this.ctx.url {
+        tag: 'a'
+        attrs: {href: this.ctx.url}
+        this._bla, attrs: {href: this._bla}
+    }
+}
+*/});
 
 // var tt = stx.parse('ctx.tag(a, b)') ;
 //var tt = stx.parse('function(){b}()');
