@@ -54,7 +54,7 @@ var temp5 = stx.get(function() {/*
 block button {
     tag: 'button'
     this.ctx.url {
-        tag: {console.log(this); return 'a';}
+        tag: {applyNext()}
         attrs: ({href: this.ctx.url})
         this._bla, attrs: ({href: this._bla})
     }
@@ -67,8 +67,22 @@ block button {
 
 var temp = [temp1, temp2, temp3, temp4, temp5];
 
-stx.toBh(temp1);
+//stx.toBh(temp1);
 
 //stx.tohtml(temp)({block: 'button', url: 'href'});
 
-//pp(stx.classify2(temp));
+//lo.isEqual(lo.rest(stx.classify2(temp5)), stx.parse(temp5, 'bem'));
+
+var res = stx.classify2(temp5);
+
+
+// ediff of parse.tree vs classify.tree should be the same up to
+// dynamically generated flags to avoid infinite recursion of template
+// re-application. This is because I parse two trees separately. Idea
+// here is that classification shouldn't alter bemhtml tree
+if (false) {
+    fs.writeFileSync(path.join(__dirname, 'parse.tree'),
+                     JSON.stringify(stx.parse(temp5, 'bem'), true, 2));
+    fs.writeFileSync(path.join(__dirname, 'classify.tree'),
+                     JSON.stringify(lo.rest(res), true, 2));
+}
