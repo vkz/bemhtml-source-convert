@@ -27,48 +27,48 @@ files = lo(files).
 templates = lo.zipObject (templates,
                           files);
 
-// var temp = stx.get(function() {/*
-//     block list {
-//         elem item, tag: 'li'
-//     }
-// */});
+var temp1 = stx.get(function() {/*
+    block list {
+        elem item, tag: 'li'
+    }
+*/});
 
 
-// var temp = stx.get(function() {/*
-// block input, mod theme black, elem hint, tag: 'a'
-// */});
+var temp2 = stx.get(function() {/*
+block input, mod theme black, elem hint, tag: 'a'
+*/});
 
-var temp = stx.get(function() {/*
+var temp3 = stx.get(function() {/*
 block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
 */});
 
-// var temp = stx.get(function() {/*
-// block button {
-//     tag: 'button'
-//     content: this.ctx
-//     this._bla && this.ctx.url { tag: 'a' }
-// }
-// */});
+var temp4 = stx.get(function() {/*
+block button {
+    tag: 'button'
+    content: this.ctx
+    this._bla && this.ctx.url { tag: 'a' }
+}
+*/});
 
-// var temp = stx.get(function() {/*
-// block button {
-//     tag: 'button'
-//     this.ctx.url {
-//         tag: {console.log(this); return 'a';}
-//         attrs: ({href: this.ctx.url})
-//         this._bla, attrs: ({href: this._bla})
-//     }
-// }
-// */});
+var temp5 = stx.get(function() {/*
+block button {
+    tag: 'button'
+    this.ctx.url {
+        tag: {console.log(this); return 'a';}
+        attrs: ({href: this.ctx.url})
+        this._bla, attrs: ({href: this._bla})
+    }
+}
+*/});
 
 // var tt = stx.parse('ctx.tag(a, b)') ;
 //var tt = stx.parse('function(){b}()');
 // serializer.matchAll(tt, 'trans');
 
-pp(stx.parse(temp, 'bem'));
-pp(stx.parse(temp));
-//stx.toBh(temp);
+var temp = [temp1, temp2, temp3, temp4, temp5];
+
+stx.toBh(temp1);
 
 //stx.tohtml(temp)({block: 'button', url: 'href'});
 
-pp(stx.classify2(temp));
+//pp(stx.classify2(temp));
