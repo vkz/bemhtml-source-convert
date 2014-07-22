@@ -38,9 +38,9 @@ templates = lo.zipObject (templates,
 // block input, mod theme black, elem hint, tag: 'a'
 // */});
 
-// var temp = stx.get(function() {/*
-// block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
-// */});
+var temp = stx.get(function() {/*
+block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
+*/});
 
 // var temp = stx.get(function() {/*
 // block button {
@@ -50,20 +50,25 @@ templates = lo.zipObject (templates,
 // }
 // */});
 
-var temp = stx.get(function() {/*
-block button {
-    tag: 'button'
-    this.ctx.url {
-        tag: 'a'
-        attrs: {href: this.ctx.url}
-        this._bla, attrs: {href: this._bla}
-    }
-}
-*/});
+// var temp = stx.get(function() {/*
+// block button {
+//     tag: 'button'
+//     this.ctx.url {
+//         tag: {console.log(this); return 'a';}
+//         attrs: ({href: this.ctx.url})
+//         this._bla, attrs: ({href: this._bla})
+//     }
+// }
+// */});
 
 // var tt = stx.parse('ctx.tag(a, b)') ;
 //var tt = stx.parse('function(){b}()');
 // serializer.matchAll(tt, 'trans');
 
-//pp(stx.parse(temp));
-stx.toBh(temp);
+pp(stx.parse(temp, 'bem'));
+pp(stx.parse(temp));
+//stx.toBh(temp);
+
+//stx.tohtml(temp)({block: 'button', url: 'href'});
+
+pp(stx.classify2(temp));

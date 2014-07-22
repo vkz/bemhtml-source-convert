@@ -78,36 +78,40 @@ var convert = require('..'),
 //     tapply = bh.tohtml(template);
 
 
-/** param */
-var input = {block : 'search',
-             action : 'sparta'
+// /** param
+//  *
+//  *  note that ctx.param() and direct get/set json properties appear to be equivalent
+//  *
+// */
+// var input = {block : 'search',
+//              action : 'sparta'
+//             },
+//     templateSource = function(bh) {
+//         bh.match('search', function(ctx, json) {
+//             ctx.attr('action', ctx.param('action') || '/');
+//             // ctx.attr('action', json.action || '/');
+//         });
+//     },
+//     template = bh.get(templateSource),
+//     tapply = bh.tohtml(template);
+
+
+/** tParam */
+var input = {block : 'input',
+             value : 'sparta'
             },
     templateSource = function(bh) {
-        bh.match('search', function(ctx) {
-            ctx.attr('action', ctx.param('action') || '/');
+        bh.match('input', function(ctx, json) {
+            ctx.content({
+                elem: 'control'
+            }, true);
+            ctx.tParam('value', ctx.param('value'));
+        });
+        bh.match('input__control', function(ctx, json) {
+            ctx.attr('value', ctx.tParam('value'));
         });
     },
     template = bh.get(templateSource),
     tapply = bh.tohtml(template);
-
-
-// /** tParam */
-// var input = {block : 'input',
-//              value : 'sparta'
-//             },
-//     templateSource = function(bh) {
-//         bh.match('input', function(ctx, json) {
-//             ctx.content({
-//                 elem: 'control'
-//             }, true);
-//             ctx.tParam('value', ctx.param('value'));
-//         });
-
-//         bh.match('input__control', function(ctx, json) {
-//             ctx.attr('value', ctx.tParam('value'));
-//         });
-//     },de
-//     template = bh.get(templateSource),
-//     tapply = bh.tohtml(template);
 
 tapply(input);
