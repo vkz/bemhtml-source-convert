@@ -90,8 +90,8 @@ if (false) {
                      JSON.stringify(lo.rest(bh), true, 2));
 }
 
-var ast = stx.parse(t, 'bem');
-pp(ast);
+// var ast = stx.parse(t, 'bem');
+// pp(ast);
 
 
-stx.toBh2(t);
+temp.forEach(stx.toBh);
