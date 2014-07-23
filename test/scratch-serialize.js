@@ -8,6 +8,7 @@ var convert = require('..'),
     parser = require('../lib/ometa/bemhtml-bh').Parser,
     serializer = require('../lib/ometa/bemhtml-bh').XastToBh,
     bemparser = require('../lib/ometa/bemhtml').BEMHTMLParser,
+    jstrans = ometajs.grammars.BSJSTranslator,
     uglify = require('uglify-js'),
     esprima = require('esprima'),
     escodegen = require('escodegen'),
@@ -54,7 +55,7 @@ var temp5 = stx.get(function() {/*
 block button {
     tag: 'button'
     this.ctx.url {
-        tag: {applyNext()}
+        tag: 'a'
         attrs: ({href: this.ctx.url})
         this._bla, attrs: ({href: this._bla})
     }
@@ -73,7 +74,9 @@ var temp = [temp1, temp2, temp3, temp4, temp5];
 
 //lo.isEqual(lo.rest(stx.classify2(temp5)), stx.parse(temp5, 'bem'));
 
-var res = stx.classify2(temp5);
+var t = temp3;
+
+//var bh = stx.classify2(t);
 
 
 // ediff of parse.tree vs classify.tree should be the same up to
@@ -82,7 +85,12 @@ var res = stx.classify2(temp5);
 // here is that classification shouldn't alter bemhtml tree
 if (false) {
     fs.writeFileSync(path.join(__dirname, 'parse.tree'),
-                     JSON.stringify(stx.parse(temp5, 'bem'), true, 2));
+                     JSON.stringify(stx.parse(t, 'bem'), true, 2));
     fs.writeFileSync(path.join(__dirname, 'classify.tree'),
-                     JSON.stringify(lo.rest(res), true, 2));
+                     JSON.stringify(lo.rest(bh), true, 2));
 }
+
+// var ast = stx.parse(t, 'bem');
+// pp(ast);
+
+stx.toBh2(t, false);
