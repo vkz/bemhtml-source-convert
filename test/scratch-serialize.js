@@ -74,7 +74,7 @@ var temp = [temp1, temp2, temp3, temp4, temp5];
 
 //lo.isEqual(lo.rest(stx.classify2(temp5)), stx.parse(temp5, 'bem'));
 
-var t = temp4 ;
+var t = temp5 ;
 
 //var bh = stx.classify2(t);
 
@@ -90,8 +90,8 @@ if (false) {
                      JSON.stringify(lo.rest(bh), true, 2));
 }
 
-// var ast = stx.parse(t, 'bem');
-// pp(ast);
+var ast = stx.parse(t, 'bem');
+pp(ast);
 
 
 stx.toBh2(t);
