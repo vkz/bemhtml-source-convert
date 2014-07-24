@@ -106,6 +106,6 @@ temp.forEach(stx.toBh);
 
 //jstrans.match('ctx.tag("a", true)', 'stmt');
 
-stx.bhWithClass(t);
+var c = stx.bhWithClass(t).classification;
 
-pp([1, 2], 'blablablablablabla');
+pp(stx.describeClass(c));
