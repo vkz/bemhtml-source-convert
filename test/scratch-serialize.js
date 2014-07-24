@@ -46,8 +46,8 @@ block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
 var temp4 = stx.get(function() {/*
 block button {
     tag: 'button'
-    content: this.ctx
-    this._bla && this.ctx.url { tag: 'a' }
+    content: {block: 'link'}
+    this.ctx.url { tag: this.ctx.url }
 }
 */});
 
@@ -95,3 +95,17 @@ if (false) {
 
 
 temp.forEach(stx.toBh);
+//temp.forEach(stx.classify2);
+
+//stx.classify2(t);
+
+// var button = {block: 'button', url: 'link'},
+//     bh = convert.bh.tohtml(convert.bh.get(eval(stx.toBh (temp4))));
+
+// bh(button);
+
+//jstrans.match('ctx.tag("a", true)', 'stmt');
+
+stx.bhWithClass(t);
+
+pp([1, 2], 'blablablablablabla');

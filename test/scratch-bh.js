@@ -96,19 +96,39 @@ var convert = require('..'),
 //     tapply = bh.tohtml(template);
 
 
+// /** tParam */
+// var input = {block : 'input',
+//              value : 'sparta'
+//             },
+//     templateSource = function(bh) {
+//         bh.match('input', function(ctx, json) {
+//             console.log(json.value);
+//             ctx.content({
+//                 elem: 'control'
+//             }, true);
+//             ctx.tParam('value', ctx.param('value'));
+//         });
+//         bh.match('input__control', function(ctx, json) {
+//             ctx.attr('value', ctx.tParam('value'));
+//         });
+//     },
+//     template = bh.get(templateSource),
+//     tapply = bh.tohtml(template);
+
+
 /** tParam */
 var input = {block : 'input',
              value : 'sparta'
             },
     templateSource = function(bh) {
         bh.match('input', function(ctx, json) {
-            ctx.content({
-                elem: 'control'
-            }, true);
-            ctx.tParam('value', ctx.param('value'));
-        });
-        bh.match('input__control', function(ctx, json) {
-            ctx.attr('value', ctx.tParam('value'));
+            utils.pp(json);
+            ctx.tag('input');
+
+            if(json.value) {
+                ctx.tag('a', true);
+            }
+            ctx.tag('button', true);
         });
     },
     template = bh.get(templateSource),
