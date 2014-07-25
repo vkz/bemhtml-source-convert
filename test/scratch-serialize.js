@@ -106,6 +106,30 @@ temp.forEach(stx.toBh);
 
 //jstrans.match('ctx.tag("a", true)', 'stmt');
 
-var c = stx.bhWithClass(t).classification;
+// var c = stx.bhWithClass(t, 'false');
 
-pp(stx.describeClass(c));
+// var res = stx.classify2(t);
+
+// var ast = res.shift() && res;
+
+
+
+stx.toBh(t);
+
+var colors = require('colors');
+
+
+// beautify and print using my prettyPrinter
+function beautify(code) {
+    var tree = esprima.parse(code, {range: true, tokens: true, comment: true});
+    tree = escodegen.attachComments(tree, tree.comments, tree.tokens);
+    pp(tree);
+    return escodegen.generate(tree, {comment: true});
+}
+
+//pp(escodegen.generate(beautify(stx.toBh(t, false))));
+
+var code = stx.toBh(t, false);
+var res = beautify('//test comment' + '\n' + code);
+
+pp(res);
