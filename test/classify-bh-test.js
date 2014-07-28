@@ -190,10 +190,10 @@ describe(testingMsg, function (){
             );
         });
 
-        it('Should be classified into 1.2',
-           function () {
-               assert.ok(haveClass(classified, 1.2));
-           });
+        // it('Should be classified into 1.2',
+        //    function () {
+        //        assert.ok(haveClass(classified, 1.2));
+        //    });
 
         it('Should be classified into 2.2',
            function () {
@@ -270,10 +270,10 @@ describe(testingMsg, function (){
             );
         });
 
-        it('Should be classified into 1.2',
-           function () {
-               assert.ok(haveClass(classified, 1.2));
-           });
+        // it('Should be classified into 1.2',
+        //    function () {
+        //        assert.ok(haveClass(classified, 1.2));
+        //    });
 
         it('Should be classified into 3.3',
            function () {
