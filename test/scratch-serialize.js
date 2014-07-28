@@ -1,5 +1,5 @@
 var convert = require('..'),
-    stx = convert.stx,
+    Stx = convert.Stx,
     pp = convert.utils.pp,
     ometajs = require('ometajs'),
     lo = require('lodash'),
@@ -28,95 +28,95 @@ files = lo(files).
 templates = lo.zipObject (templates,
                           files);
 
-var temp1 = stx.get(function() {/*
-    block list {
-        elem item, tag: 'li'
-    }
-*/});
+// var temp1 = stx.get(function() {/*
+//     block list {
+//         elem item, tag: 'li'
+//     }
+// */});
 
 
-var temp2 = stx.get(function() {/*
-block input, mod theme black, elem hint, tag: 'a'
-*/});
+// var temp2 = stx.get(function() {/*
+// block input, mod theme black, elem hint, tag: 'a'
+// */});
 
-var temp3 = stx.get(function() {/*
-block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
-*/});
+// var temp3 = stx.get(function() {/*
+// block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
+// */});
 
-var temp4 = stx.get(function() {/*
-block button {
-    tag: 'button'
-    content: {block: 'link'}
-    this.ctx.url { tag: this.ctx.url }
-}
-*/});
+// var temp4 = stx.get(function() {/*
+// block button {
+//     tag: 'button'
+//     content: {block: 'link'}
+//     this.ctx.url { tag: this.ctx.url }
+// }
+// */});
 
-var temp5 = stx.get(function() {/*
-block button {
-    tag: 'button'
-    this.ctx.url {
-        tag: 'a'
-        attrs: ({href: this.ctx.url})
-        this._bla, attrs: ({href: this._bla})
-    }
-}
-*/});
+// var temp5 = stx.get(function() {/*
+// block button {
+//     tag: 'button'
+//     this.ctx.url {
+//         tag: 'a'
+//         attrs: ({href: this.ctx.url})
+//         this._bla, attrs: ({href: this._bla})
+//     }
+// }
+// */});
 
-// var tt = stx.parse('ctx.tag(a, b)') ;
-//var tt = stx.parse('function(){b}()');
-// serializer.matchAll(tt, 'trans');
+// // var tt = stx.parse('ctx.tag(a, b)') ;
+// //var tt = stx.parse('function(){b}()');
+// // serializer.matchAll(tt, 'trans');
 
-var temp = [temp1, temp2, temp3, temp4, temp5];
+// var temp = [temp1, temp2, temp3, temp4, temp5];
 
-//stx.toBh(temp1);
+// //stx.toBh(temp1);
 
-//stx.tohtml(temp)({block: 'button', url: 'href'});
+// //stx.tohtml(temp)({block: 'button', url: 'href'});
 
-//lo.isEqual(lo.rest(stx.classify2(temp5)), stx.parse(temp5, 'bem'));
+// //lo.isEqual(lo.rest(stx.classify2(temp5)), stx.parse(temp5, 'bem'));
 
-var t = temp5 ;
+// var t = temp5 ;
 
-//var bh = stx.classify2(t);
-
-
-// ediff of parse.tree vs classify.tree should be the same up to
-// dynamically generated flags to avoid infinite recursion of template
-// re-application. This is because I parse two trees separately. Idea
-// here is that classification shouldn't alter bemhtml tree
-if (false) {
-    fs.writeFileSync(path.join(__dirname, 'parse.tree'),
-                     JSON.stringify(stx.parse(t, 'bem'), true, 2));
-    fs.writeFileSync(path.join(__dirname, 'classify.tree'),
-                     JSON.stringify(lo.rest(bh), true, 2));
-}
-
-// var ast = stx.parse(t, 'bem');
-// pp(ast);
+// //var bh = stx.classify2(t);
 
 
-temp.forEach(stx.toBh);
-//temp.forEach(stx.classify2);
+// // ediff of parse.tree vs classify.tree should be the same up to
+// // dynamically generated flags to avoid infinite recursion of template
+// // re-application. This is because I parse two trees separately. Idea
+// // here is that classification shouldn't alter bemhtml tree
+// if (false) {
+//     fs.writeFileSync(path.join(__dirname, 'parse.tree'),
+//                      JSON.stringify(stx.parse(t, 'bem'), true, 2));
+//     fs.writeFileSync(path.join(__dirname, 'classify.tree'),
+//                      JSON.stringify(lo.rest(bh), true, 2));
+// }
 
-//stx.classify2(t);
-
-// var button = {block: 'button', url: 'link'},
-//     bh = convert.bh.tohtml(convert.bh.get(eval(stx.toBh (temp4))));
-
-// bh(button);
-
-//jstrans.match('ctx.tag("a", true)', 'stmt');
-
-var c = stx.bhWithClass(t, 'false').classification;
-
-pp(stx.describeClass(c), {prompt: 'Classification', stringify: true});
-
-// var res = stx.classify2(t);
-
-// var ast = res.shift() && res;
+// // var ast = stx.parse(t, 'bem');
+// // pp(ast);
 
 
+// temp.forEach(stx.toBh);
+// //temp.forEach(stx.classify2);
 
-// var colors = require('colors');
+// //stx.classify2(t);
+
+// // var button = {block: 'button', url: 'link'},
+// //     bh = convert.bh.tohtml(convert.bh.get(eval(stx.toBh (temp4))));
+
+// // bh(button);
+
+// //jstrans.match('ctx.tag("a", true)', 'stmt');
+
+// var c = stx.bhWithClass(t, 'false').classification;
+
+// pp(stx.describeClass(c), {prompt: 'Classification', stringify: true});
+
+// // var res = stx.classify2(t);
+
+// // var ast = res.shift() && res;
+
+
+
+// // var colors = require('colors');
 
 // // beautify and print using my prettyPrinter
 // function beautify(code) {
@@ -125,6 +125,28 @@ pp(stx.describeClass(c), {prompt: 'Classification', stringify: true});
 //     return escodegen.generate(tree, {comment: true});
 // }
 
-// var code = stx.toBh(t, false);
-// var res = beautify('//'+ 'test'.red + 'comment'.blue + '\n' + code);
-// pp(res);
+// // var code = stx.toBh(t, false);
+// // var res = beautify('//'+ 'test'.red + 'comment'.blue + '\n' + code);
+// // pp(res);
+
+
+var temp = new Stx(function() {/*
+    block list {
+        elem item, tag: 'li'
+    }
+*/});
+
+
+
+// function Temp() {
+//     var _h;
+
+//     // this.h = _h ? _h : (_h = 42, _h);
+
+//     Object.defineProperties(this, {
+//         'test': { 'get': function() { !_h && (_h = '42'); return _h;}}
+//     });
+
+// }
+
+// Temp.prototype.seth = function () { _h = 42;};
