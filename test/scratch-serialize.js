@@ -76,6 +76,7 @@ temp.forEach(
 
 var t = temp[0];
 t.match({block: 'list', elem: 'item'});
+t.bh.match({block: 'list', elem: 'item'});
 
 // //stx.toBh(temp1);
 

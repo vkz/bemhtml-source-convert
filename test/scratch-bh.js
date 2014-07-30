@@ -116,19 +116,32 @@ var convert = require('..'),
 //     tapply = bh.tohtml(template);
 
 
-/** tParam */
-var input = {block : 'input',
-             value : 'sparta'
-            },
-    templateSource = function(bh) {
-        bh.match('input', function(ctx, json) {
-            utils.pp(json);
-            ctx.tag('input');
+// /** tParam */
+// var input = {block : 'input',
+//              value : 'sparta'
+//             },
+//     templateSource = function(bh) {
+//         bh.match('input', function(ctx, json) {
+//             utils.pp(json);
+//             ctx.tag('input');
 
-            if(json.value) {
-                ctx.tag('a', true);
-            }
-            ctx.tag('button', true);
+//             if(json.value) {
+//                 ctx.tag('a', true);
+//             }
+//             ctx.tag('button', true);
+//         });
+//     },
+//     template = bh.get(templateSource),
+//     tapply = bh.tohtml(template);
+
+
+/** tParam */
+var input = {block : 'list',
+             elem : 'item'
+            },
+    templateSource = function (bh) {
+        bh.match('list__item', function (ctx, json) {
+            ctx.tag('li', true);
         });
     },
     template = bh.get(templateSource),
