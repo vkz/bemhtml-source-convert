@@ -28,45 +28,54 @@ files = lo(files).
 templates = lo.zipObject (templates,
                           files);
 
-// var temp1 = stx.get(function() {/*
-//     block list {
-//         elem item, tag: 'li'
-//     }
-// */});
+var temp1 = new Stx(function() {/*
+    block list {
+        elem item, tag: 'li'
+    }
+*/});
 
 
-// var temp2 = stx.get(function() {/*
-// block input, mod theme black, elem hint, tag: 'a'
-// */});
+var temp2 = new Stx(function() {/*
+block input, mod theme black, elem hint, tag: 'a'
+*/});
 
-// var temp3 = stx.get(function() {/*
-// block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
-// */});
+var temp3 = new Stx(function() {/*
+block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
+*/});
 
-// var temp4 = stx.get(function() {/*
-// block button {
-//     tag: 'button'
-//     content: {block: 'link'}
-//     this.ctx.url { tag: this.ctx.url }
-// }
-// */});
+var temp4 = new Stx(function() {/*
+block button {
+    tag: 'button'
+    content: {block: 'link'}
+    this.ctx.url { tag: this.ctx.url }
+}
+*/});
 
-// var temp5 = stx.get(function() {/*
-// block button {
-//     tag: 'button'
-//     this.ctx.url {
-//         tag: 'a'
-//         attrs: ({href: this.ctx.url})
-//         this._bla, attrs: ({href: this._bla})
-//     }
-// }
-// */});
+var temp5 = new Stx(function() {/*
+block button {
+    tag: 'button'
+    this.ctx.url {
+        tag: 'a'
+        attrs: ({href: this.ctx.url})
+        this._bla, attrs: ({href: this._bla})
+    }
+}
+*/});
 
 // // var tt = stx.parse('ctx.tag(a, b)') ;
 // //var tt = stx.parse('function(){b}()');
 // // serializer.matchAll(tt, 'trans');
 
-// var temp = [temp1, temp2, temp3, temp4, temp5];
+var temp = [temp1, temp2, temp3, temp4, temp5];
+temp.forEach(
+    function(t) {
+        t.pp({prompt: 'bemhtml'});
+        t.bh.beautify().pp({prompt: 'bh'});
+    });
+
+
+var t = temp[0];
+t.match({block: 'list', elem: 'item'});
 
 // //stx.toBh(temp1);
 
@@ -116,27 +125,13 @@ templates = lo.zipObject (templates,
 
 
 
-// // var colors = require('colors');
+// var temp = new Stx(function() {/*
+//     block list {
+//         elem item, tag: 'li'
+//     }
+// */});
 
-// // beautify and print using my prettyPrinter
-// function beautify(code) {
-//     var tree = esprima.parse(code, {range: true, tokens: true, comment: true});
-//     tree = escodegen.attachComments(tree, tree.comments, tree.tokens);
-//     return escodegen.generate(tree, {comment: true});
-// }
-
-// // var code = stx.toBh(t, false);
-// // var res = beautify('//'+ 'test'.red + 'comment'.blue + '\n' + code);
-// // pp(res);
-
-
-var temp = new Stx(function() {/*
-    block list {
-        elem item, tag: 'li'
-    }
-*/});
-
-
+// temp.class;
 
 // function Temp() {
 //     var _h;

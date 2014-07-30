@@ -1,5 +1,5 @@
 var convert = require('..'),
-    stx = convert.stx,
+    Stx = convert.Stx,
     utils = convert.utils,
     pp = utils.pp,
     pb = utils.pb,
@@ -44,7 +44,7 @@ describe(testingMsg, function (){
     function doesNot (anything) {return !anything;};
 
     function classify (template) {
-        return lo.first(stx.classify2(template));
+        return (new Stx(template)).class;
     };
 
     describe(templates.temp11, function () {
