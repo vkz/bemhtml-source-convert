@@ -131,6 +131,7 @@ t.bh.match({block: 'list', elem: 'item'});
 //         elem item, tag: 'li'
 //     }
 // */});
+// temp.bh;
 
 // temp.class;
 
@@ -146,3 +147,30 @@ t.bh.match({block: 'list', elem: 'item'});
 // }
 
 // Temp.prototype.seth = function () { _h = 42;};
+
+// // var e = new Stx('block button, content: [applyNext()]');
+// var e = new Stx('ohtu othu ethuo {nthoe }');
+// e.bh;
+
+
+
+var t = new Stx("block serp-meta, elem text-wrap, tag: 'span'");
+t.bemhtml.match({
+    "block": "serp-meta",
+    "elem": "text-wrap",
+    "content": "Serp meta text-wrap content"
+});
+
+// lo(templates).forEach(function(src, name) {
+//     var t = new Stx(src);
+//     t.bh.pp({prompt: name});
+// });
+
+
+
+// var temp = new Stx(function() {/*
+//     block list {
+//         elem item, tag: 'li'
+//     }
+// */});
+// temp.bh;
