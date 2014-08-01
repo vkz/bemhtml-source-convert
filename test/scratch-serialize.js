@@ -1,5 +1,6 @@
 var convert = require('..'),
     Stx = convert.Stx,
+    bp = require('../lib/bp'),
     pp = convert.utils.pp,
     ometajs = require('ometajs'),
     lo = require('lodash'),
@@ -82,14 +83,31 @@ block button {
 //     "content": "Serp meta text-wrap content"
 // });
 
-//try convert test/cases/*
-lo(templates).forEach(function(src, name) {
-    var t = new Stx(src);
-    try {
-        t.bh.beautify().pp({prompt: name});
-    } catch(e) {
-        console.log(name.underline);
-        console.log(src);
-        console.log(t.class.describe());
-    }
-});
+// //try convert test/cases/*
+// lo(templates).forEach(function(src, name) {
+//     var t = new Stx(src);
+//     try {
+//         t.bh.beautify().pp({prompt: name});
+//     } catch(e) {
+//         console.log('!!!' + name.underline + '!!!');
+//     }
+// });
+
+// [
+//     templates.temp33_a,
+//     templates.temp33_b,
+//     templates.temp33_c
+// ]
+
+// lo(templates).forEach(function(src, name) {
+//     var t = new Stx(src);
+//     try {
+//         t.bh;
+//     } catch(e) {
+//         console.log(e.message ? e.message : e);
+//         console.log(name.underline);
+//     }
+// });
+
+var t = new Stx(templates.temp33_c);
+t.bh;
