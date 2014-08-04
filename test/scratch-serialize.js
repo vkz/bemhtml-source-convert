@@ -1,7 +1,7 @@
 var convert = require('..'),
     Stx = convert.Stx,
     bp = require('../lib/bp'),
-    pp = convert.utils.pp,
+    pp = bp.pp,
     ometajs = require('ometajs'),
     lo = require('lodash'),
     fs = require('fs'),
@@ -47,19 +47,8 @@ block input, mod theme black, elem hint, elemMod visibility visible, tag: 'a'
 var temp4 = new Stx(function() {/*
 block button {
     tag: 'button'
-    content: {block: 'link'}
+    content: 'Yandex'
     this.ctx.url { tag: this.ctx.url }
-}
-*/});
-
-var temp5 = new Stx(function() {/*
-block button {
-    tag: 'button'
-    this.ctx.url {
-        tag: 'a'
-        attrs: ({href: this.ctx.url})
-        this._bla, attrs: ({href: this._bla})
-    }
 }
 */});
 
@@ -109,5 +98,94 @@ block button {
 //     }
 // });
 
-var t = new Stx(templates.temp33_c);
-t.bh;
+// var t = new Stx(templates.temp33_c);
+
+
+var temp5 = new Stx(function() {/*
+block button {
+    tag: 'button'
+    this.ctx.url {
+        tag: 'a'
+        attrs: {this._bla = '_bla_bla'; console.log(this); return {href: 'hi'};}
+        this._bla, attrs: ({href: this._bla})
+    }
+}
+*/});
+
+temp5.bemhtml.pp();
+temp5.bemhtml.match({block: 'button', url: 'yandex.ru', _bla: 'yandex-team.ru'});
+
+
+// /Users/kozin/Documents/bh-migration-test/blocks/link/link.bemhtml
+// arbitrary javascript - sequence of [#stmt ...] wrapped in [#begin ...]
+// can just be wrapped in iif (function () { })()
+// potential problem with 'this' inside the function
+var tt = new Stx(function () {/*
+block link {
+    tag: 'a'
+    attrs: {
+        var ctx = this.ctx,
+            a = {},
+            props = ['title', 'target'], p;
+
+        while (p = props.pop()) ctx[p] && (a[p] = ctx[p]);
+        ctx.counter && (a.onmousedown = ctx.counter);
+        a.href = ctx.url;
+
+        return a;
+    }
+}
+*/});
+
+
+
+var s = 'module.exports = function(bh) {' +
+        '    bh.match("link", function (ctx, json) {' +
+        '        ctx.tag("a",true);' +
+        '        ctx.attrs((function(){' +
+        '            var _$5ctx = json,' +
+        '                _$5a = {},' +
+        '                _$5props = ["title","target"],' +
+        '                _$5p;' +
+        '            while((_$5p = _$5props.pop())) {' +
+        '                (_$5ctx[_$5p] && ((_$5a[_$5p] = _$5ctx[_$5p])))' +
+        '            };' +
+        '            (_$5ctx.counter && ((_$5a.onmousedown = _$5ctx.counter)));' +
+        '            (_$5a.href = _$5ctx.url);' +
+        '            return _$5a' +
+        '        })(),true);' +
+        '    });};';
+
+
+var e = 'this.isFirst()';
+var ast = bemparser.matchAll(e, 'stmt');
+
+pp(ast);
+
+
+var z = new Stx(function () {/*
+block z-pseudo {
+    elem icon {
+        attrs: {
+            var url = this.ctx.url;
+
+            if (url.indexOf('http') !== 0) { url = '//' + url; }
+            return {
+                style: 'background-image: url(' + url + ');' +
+                       '_background:none;' +
+                       '_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + url + '\', sizingMethod=\'crop\');}'
+            };
+        }
+    }
+
+    elem content {
+        mix: { block: 'clearfix' }
+    }
+
+    elem item, this.isLast(), mix: {
+        mods: { pos: 'last' }
+    }
+}
+*/});
+
+z.bh.beautify().pp();
