@@ -27,7 +27,7 @@
     "xjst": "~0.4.21"
   },
   "devDependencies": {
-    "html-differ": "~0.3.1"
+    "html-differ": "~0.5.0"
   },
   "directories": {},
   "private": true
