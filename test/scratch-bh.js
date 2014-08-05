@@ -2,7 +2,8 @@ var convert = require('..'),
     stx = convert.stx,
     utils = convert.utils,
     util = require('util'),
-    bh = convert.bh,
+    Bh = require('bh').BH,
+    lo = require('lodash'),
     diff = require('html-differ'),
     ibem = require('./i-bem');
 
@@ -135,16 +136,40 @@ var convert = require('..'),
 //     tapply = bh.tohtml(template);
 
 
-/** tParam */
-var input = {block : 'list',
-             elem : 'item'
-            },
-    templateSource = function (bh) {
-        bh.match('list__item', function (ctx, json) {
-            ctx.tag('li', true);
+// /** tParam */
+// var input = {block : 'list',
+//              elem : 'item'
+//             },
+//     templateSource = function (bh) {
+//         bh.match('list__item', function (ctx, json) {
+//             ctx.tag('li', true);
+//         });
+//     },
+//     template = bh.get(templateSource),
+//     tapply = bh.tohtml(template);
+
+Bh = require('bh').BH,
+lo = require('lodash');
+
+var json1 = {block : 'button', elem : 'item'},
+    json2 = lo.cloneDeep(json1),
+
+    template1 = function (bh) {
+        bh.match('button__item', function(ctx, json) {
+            ctx.mix({mods: {'pos': 'last'}});
         });
     },
-    template = bh.get(templateSource),
-    tapply = bh.tohtml(template);
+    template2 = function (bh) {
+        bh.match('button__item', function(ctx, json) {
+            ctx.mod('pos', 'last');
+        });
+    },
 
-tapply(input);
+    bh1 = new Bh(),
+    bh2 = new Bh();
+
+template1(bh1);
+bh1.apply(json1);
+
+template2(bh2);
+bh2.apply(json2);

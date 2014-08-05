@@ -13,6 +13,7 @@ var convert = require('..'),
     uglify = require('uglify-js'),
     colors = require('colors'),
     esprima = require('esprima'),
+    Bh = require('bh').BH,
     escodegen = require('escodegen'),
     projectRoot = path.resolve(path.join(__dirname, '..')),
     casesRoot = path.join(projectRoot, 'test', 'cases'),
@@ -203,19 +204,26 @@ var differ = require('html-differ'),
     };
 
 // var src = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
-var src = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
-    granny = new Stx(fs.readFileSync(src, 'utf8')),
-    dirname = path.dirname(src),
-    name = path.basename(src, '.bemhtml'),
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
+    test = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
+    dirname = path.dirname(bemhtmlsrc),
+    name = path.basename(bemhtmlsrc, '.bemhtml'),
     bemjson = fs.readFileSync(dirname + '/' + name + '.json', 'utf8'),
-    json = JSON.parse(bemjson),
-    json2 = lo.cloneDeep(json),
-    htmlexpected = granny.match(json),
-    html = granny.bh.match(json2);
+    json1 = JSON.parse(bemjson),
+    json2 = lo.cloneDeep(json1),
+    json3 = lo.cloneDeep(json1),
+    htmlexpected = test.match(json1),
+    html = test.bh.match(json2);
 
-granny.pp(granny.src);
-//granny.bh.beautify().pp();
-pp(bemjson);
-console.log('\n'.black);
+pp(bemjson, {prompt: 'json'});
+test.pp(test.src, {prompt: 'bemhtml'});
+test.bh.beautify().pp({prompt: 'bh generated'});
+
 var diff = differ.diffHtml(html, htmlexpected);
 difflogger.log(diff, { charsAroundDiff: 40 });
+
+var bhsrc = require('/Users/kozin/Documents/granny/blocks/z-pseudo/z-pseudo.bh.js'),
+    bh = new Bh();
+bhsrc(bh);
+pp(bhsrc.toString(), {prompt: 'bh hand-written'});
+console.log('Html it generates\n'.magenta, bh.apply(json3));
