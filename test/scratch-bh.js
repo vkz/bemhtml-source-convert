@@ -3,6 +3,8 @@ var convert = require('..'),
     utils = convert.utils,
     util = require('util'),
     Bh = require('bh').BH,
+    bp = require('../lib/bp'),
+    pp = bp.pp,
     lo = require('lodash'),
     diff = require('html-differ'),
     ibem = require('./i-bem');
@@ -151,25 +153,16 @@ var convert = require('..'),
 Bh = require('bh').BH,
 lo = require('lodash');
 
-var json1 = {block : 'button', elem : 'item'},
+var json1 = {block : 'button', elem : 'item', mods:  {disabled: true, sparkling: true}},
     json2 = lo.cloneDeep(json1),
 
     template1 = function (bh) {
         bh.match('button__item', function(ctx, json) {
-            ctx.mix({mods: {'pos': 'last'}});
+            pp(json.elemMods);
+            ctx.mod({disabled: false});
         });
     },
-    template2 = function (bh) {
-        bh.match('button__item', function(ctx, json) {
-            ctx.mod('pos', 'last');
-        });
-    },
-
-    bh1 = new Bh(),
-    bh2 = new Bh();
+    bh1 = new Bh();
 
 template1(bh1);
 bh1.apply(json1);
-
-template2(bh2);
-bh2.apply(json2);

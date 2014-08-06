@@ -193,6 +193,8 @@ var convert = require('..'),
 // z.bh.beautify().pp();
 
 
+
+// test html
 var differ = require('html-differ'),
     difflogger = require('html-differ/lib/diff-logger'),
     options = {
@@ -203,27 +205,36 @@ var differ = require('html-differ'),
         bem: false
     };
 
-// var src = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
-    test = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
+// bemhtml and generated bh
+// var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
+    stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
+    pathtail = dirname.slice('/Users/kozin/Documents/bh-migration-test/'.length),
     name = path.basename(bemhtmlsrc, '.bemhtml'),
     bemjson = fs.readFileSync(dirname + '/' + name + '.json', 'utf8'),
     json1 = JSON.parse(bemjson),
     json2 = lo.cloneDeep(json1),
     json3 = lo.cloneDeep(json1),
-    htmlexpected = test.match(json1),
-    html = test.bh.match(json2);
+    htmlexpected = stx.match(json1),
+    html = stx.bh.match(json2),
+    diff = differ.diffHtml(html, htmlexpected);
 
 pp(bemjson, {prompt: 'json'});
-test.pp(test.src, {prompt: 'bemhtml'});
-test.bh.beautify().pp({prompt: 'bh generated'});
+stx.pp(stx.src, {prompt: 'bemhtml'});
+stx.bh.beautify().pp({prompt: 'bh generated'});
 
-var diff = differ.diffHtml(html, htmlexpected);
-difflogger.log(diff, { charsAroundDiff: 40 });
-
-var bhsrc = require('/Users/kozin/Documents/granny/blocks/z-pseudo/z-pseudo.bh.js'),
+// hand-written bh
+var bhsrc = require('/Users/kozin/Documents/granny/' + pathtail + '/' + name + '.bh.js'),
     bh = new Bh();
 bhsrc(bh);
 pp(bhsrc.toString(), {prompt: 'bh hand-written'});
-console.log('Html it generates\n'.magenta, bh.apply(json3));
+
+// maybe show html diff
+if (!differ.isEqual(html, htmlexpected)) {
+    console.log('Html diff bemhtml VS bh generated\n'.magenta);
+    difflogger.log(diff, { charsAroundDiff: 500 });
+    console.log('\n');
+}
+
+console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
