@@ -54,13 +54,24 @@ var convert = require('..'),
 // }
 // */});
 
-// // //try convert temp*
-// // var temp = [temp1, temp2, temp3, temp4, temp5];
-// // temp.forEach(
-// //     function(t) {
-// //         t.pp({prompt: 'bemhtml'});
-// //         t.bh.beautify().pp({prompt: 'bh'});
-// //     });
+// var temp5 = new Stx(function() {/*
+// block button {
+//     tag: 'button'
+//     this.ctx.url {
+//         tag: 'a'
+//         attrs: {this._bla = '_bla_bla'; console.log(this); return {href: 'hi'};}
+//         this._bla, attrs: ({href: this._bla})
+//     }
+// }
+// */});
+
+// //try convert temp*
+// var temp = [temp1, temp2, temp3, temp4, temp5];
+// temp.forEach(
+//     function(t) {
+//         //t.pp({prompt: 'bemhtml'});
+//         t.bh.beautify().pp({prompt: 'bh'});
+//     });
 
 // // // why wouldn't it blow up on this input?
 // // var e = new Stx('ohtu othu ethuo {nthoe }');
@@ -102,17 +113,6 @@ var convert = require('..'),
 
 // // var t = new Stx(templates.temp33_c);
 
-
-// var temp5 = new Stx(function() {/*
-// block button {
-//     tag: 'button'
-//     this.ctx.url {
-//         tag: 'a'
-//         attrs: {this._bla = '_bla_bla'; console.log(this); return {href: 'hi'};}
-//         this._bla, attrs: ({href: this._bla})
-//     }
-// }
-// */});
 
 // temp5.bemhtml.pp();
 // temp5.bemhtml.match({block: 'button', url: 'yandex.ru', _bla: 'yandex-team.ru'});
@@ -207,7 +207,7 @@ var differ = require('html-differ'),
 
 // bemhtml and generated bh
 // var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
+ var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
     pathtail = dirname.slice('/Users/kozin/Documents/bh-migration-test/'.length),
