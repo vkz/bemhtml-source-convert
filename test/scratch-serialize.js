@@ -155,8 +155,8 @@ var differ = require('html-differ'),
     };
 
 // bemhtml and generated bh
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
-// var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
+// var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
     pathtail = dirname.slice('/Users/kozin/Documents/bh-migration-test/'.length),
@@ -196,10 +196,10 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 
 
 
-var temp = new Stx(function() {/*
-block button {
-    tag: {this._.extend(this.ctx, {prop: 'a'}); return 'button';}
-}
-*/});
-temp.bh.beautify().pp();
-temp.pp();
+// var temp = new Stx(function() {/*
+// block button {
+//     tag: {this._bla = true; return 'button';}
+// }
+// */});
+// temp.bh.beautify().pp();
+// temp.pp();
