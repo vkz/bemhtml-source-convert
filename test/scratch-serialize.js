@@ -206,8 +206,8 @@ var differ = require('html-differ'),
     };
 
 // bemhtml and generated bh
-// var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
- var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
+// var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
     pathtail = dirname.slice('/Users/kozin/Documents/bh-migration-test/'.length),
@@ -232,9 +232,15 @@ pp(bhsrc.toString(), {prompt: 'bh hand-written'});
 
 // maybe show html diff
 if (!differ.isEqual(html, htmlexpected)) {
-    console.log('Html diff bemhtml VS bh generated\n'.magenta);
+    pp('Html diff bemhtml VS bh generated\n'.red);
     difflogger.log(diff, { charsAroundDiff: 500 });
     console.log('\n');
 }
 
 console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
+
+
+// pp(bemparser.matchAll ('this.mods.layout', 'stmt'));
+// pp(bemparser.matchAll ('this.mods.layout = "val"', 'stmt'));
+
+// jstrans.match(['call', ['getp', ['string', 'mod'], ['get', 'ctx']], ['string', 'p'], ['string', 'val']], 'trans');
