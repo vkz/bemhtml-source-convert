@@ -65,6 +65,7 @@ var convert = require('..'),
 // }
 // */});
 
+
 // //try convert temp*
 // var temp = [temp1, temp2, temp3, temp4, temp5];
 // temp.forEach(
@@ -141,58 +142,6 @@ var convert = require('..'),
 
 
 
-// var s = 'module.exports = function(bh) {' +
-//         '    bh.match("link", function (ctx, json) {' +
-//         '        ctx.tag("a",true);' +
-//         '        ctx.attrs((function(){' +
-//         '            var _$5ctx = json,' +
-//         '                _$5a = {},' +
-//         '                _$5props = ["title","target"],' +
-//         '                _$5p;' +
-//         '            while((_$5p = _$5props.pop())) {' +
-//         '                (_$5ctx[_$5p] && ((_$5a[_$5p] = _$5ctx[_$5p])))' +
-//         '            };' +
-//         '            (_$5ctx.counter && ((_$5a.onmousedown = _$5ctx.counter)));' +
-//         '            (_$5a.href = _$5ctx.url);' +
-//         '            return _$5a' +
-//         '        })(),true);' +
-//         '    });};';
-
-
-// var e = 'this.isFirst()';
-// var ast = bemparser.matchAll(e, 'stmt');
-
-// pp(ast);
-
-
-// var z = new Stx(function () {/*
-// block z-pseudo {
-//     elem icon {
-//         attrs: {
-//             var url = this.ctx.url;
-
-//             if (url.indexOf('http') !== 0) { url = '//' + url; }
-//             return {
-//                 style: 'background-image: url(' + url + ');' +
-//                        '_background:none;' +
-//                        '_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'' + url + '\', sizingMethod=\'crop\');}'
-//             };
-//         }
-//     }
-
-//     elem content {
-//         mix: { block: 'clearfix' }
-//     }
-
-//     elem item, this.isLast(), mix: {
-//         mods: { pos: 'last' }
-//     }
-// }
-// */});
-
-// z.bh.beautify().pp();
-
-
 
 // test html
 var differ = require('html-differ'),
@@ -244,3 +193,13 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 // pp(bemparser.matchAll ('this.mods.layout = "val"', 'stmt'));
 
 // jstrans.match(['call', ['getp', ['string', 'mod'], ['get', 'ctx']], ['string', 'p'], ['string', 'val']], 'trans');
+
+
+
+var temp = new Stx(function() {/*
+block button {
+    tag: {this._.extend(this.ctx, {prop: 'a'}); return 'button';}
+}
+*/});
+temp.bh.beautify().pp();
+temp.pp();
