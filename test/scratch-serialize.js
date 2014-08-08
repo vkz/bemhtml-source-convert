@@ -196,10 +196,10 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 
 
 
-// var temp = new Stx(function() {/*
-// block button {
-//     tag: {this._bla = true; return 'button';}
-// }
-// */});
-// temp.bh.beautify().pp();
-// temp.pp();
+var temp = new Stx(function() {/*
+block button {
+    this.ctx.url, tag: {this._bla = true; return 'button';}
+}
+*/});
+temp.bh.beautify().pp();
+temp.pp();
