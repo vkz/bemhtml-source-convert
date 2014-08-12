@@ -9,6 +9,7 @@ var convert = require('..'),
     parser = require('../lib/ometa/bemhtml-bh').Parser,
     serializer = require('../lib/ometa/bemhtml-bh').XastToBh,
     bemparser = require('../lib/ometa/bemhtml').BEMHTMLParser,
+    compat = require('bemhtml-compat'),
     jstrans = ometajs.grammars.BSJSTranslator,
     uglify = require('uglify-js'),
     colors = require('colors'),
@@ -155,8 +156,7 @@ var differ = require('html-differ'),
     };
 
 // bemhtml and generated bh
-// var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__tile/z-weather__tile.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/navigation/_more-type/navigation_more-type_tablo.bemhtml',
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
     pathtail = dirname.slice('/Users/kozin/Documents/bh-migration-test/'.length),
@@ -165,12 +165,16 @@ var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__ti
     json1 = JSON.parse(bemjson),
     json2 = lo.cloneDeep(json1),
     json3 = lo.cloneDeep(json1),
-    htmlexpected = stx.match(json1),
-    html = stx.bh.match(json2),
-    diff = differ.diffHtml(html, htmlexpected);
+    htmlexpected = stx.match(json1);
+
 
 pp(bemjson, {prompt: 'json'});
 stx.pp(stx.src, {prompt: 'bemhtml'});
+
+// pp(escodegen.generate (esprima.parse (compat.transpile (stx.src))));
+
+var html = stx.bh.match(json2),
+    diff = differ.diffHtml(html, htmlexpected);
 stx.bh.beautify().pp({prompt: 'bh generated'});
 
 // hand-written bh
@@ -194,12 +198,18 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 
 // jstrans.match(['call', ['getp', ['string', 'mod'], ['get', 'ctx']], ['string', 'p'], ['string', 'val']], 'trans');
 
-
-
 var temp = new Stx(function() {/*
-block button {
-    this.ctx.url, tag: {this._bla = true; return 'button';}
+block serp-item {
+    elem title, tag: 'h2'
+    elem title-link, default: {
+        var ctx = this.ctx;
+        delete ctx.elem;
+        return this.extend(ctx, {
+            block: 'link',
+            mix: { block: this.block, elem: this.elem }
+        });
+    }
 }
 */});
-temp.bh.beautify().pp();
 temp.pp();
+temp.bh.beautify().pp();
