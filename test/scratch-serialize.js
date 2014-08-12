@@ -199,17 +199,29 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 // jstrans.match(['call', ['getp', ['string', 'mod'], ['get', 'ctx']], ['string', 'p'], ['string', 'val']], 'trans');
 
 var temp = new Stx(function() {/*
-block serp-item {
-    elem title, tag: 'h2'
-    elem title-link, default: {
-        var ctx = this.ctx;
-        delete ctx.elem;
-        return this.extend(ctx, {
-            block: 'link',
-            mix: { block: this.block, elem: this.elem }
-        });
-    }
+block input {
+   tag: 'span'
+
+   mix: [{ block: 'clearfix' }]
+
+   default: {
+       this._attrs = this.ctx.attrs;
+       this.ctx.attrs = null;
+   }
+
+   content: {
+       var attrs = this._attrs || {};
+
+       return {
+           elem: 'control',
+           attrs: attrs
+       }
+   }
+
+   elem control, tag: 'input'
 }
 */});
 temp.pp();
 temp.bh.beautify().pp();
+
+//serializer.match(['begin', ['stmt', ['return', ['get', 'this']]], ['stmt', ['call', ['get', 'bla']]]], 'trans');
