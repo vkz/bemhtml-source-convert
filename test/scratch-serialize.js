@@ -204,3 +204,10 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 // temp.bh.beautify().pp();
 
 //serializer.match(['begin', ['stmt', ['return', ['get', 'this']]], ['stmt', ['call', ['get', 'bla']]]], 'trans');
+
+
+var obj = {
+    a : 'a'
+}
+    .b = 'b'
+    .c = 'c';
