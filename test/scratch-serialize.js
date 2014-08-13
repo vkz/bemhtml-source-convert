@@ -120,30 +120,6 @@ var convert = require('..'),
 // temp5.bemhtml.match({block: 'button', url: 'yandex.ru', _bla: 'yandex-team.ru'});
 
 
-// // /Users/kozin/Documents/bh-migration-test/blocks/link/link.bemhtml
-// // arbitrary javascript - sequence of [#stmt ...] wrapped in [#begin ...]
-// // can just be wrapped in iif (function () { })()
-// // potential problem with 'this' inside the function
-// var tt = new Stx(function () {/*
-// block link {
-//     tag: 'a'
-//     attrs: {
-//         var ctx = this.ctx,
-//             a = {},
-//             props = ['title', 'target'], p;
-
-//         while (p = props.pop()) ctx[p] && (a[p] = ctx[p]);
-//         ctx.counter && (a.onmousedown = ctx.counter);
-//         a.href = ctx.url;
-
-//         return a;
-//     }
-// }
-// */});
-
-
-
-
 // test html
 var differ = require('html-differ'),
     difflogger = require('html-differ/lib/diff-logger'),
@@ -156,7 +132,7 @@ var differ = require('html-differ'),
     };
 
 // bemhtml and generated bh
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/navigation/_more-type/navigation_more-type_tablo.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/button/button.bemhtml',
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
     pathtail = dirname.slice('/Users/kozin/Documents/bh-migration-test/'.length),
@@ -198,30 +174,33 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 
 // jstrans.match(['call', ['getp', ['string', 'mod'], ['get', 'ctx']], ['string', 'p'], ['string', 'val']], 'trans');
 
-var temp = new Stx(function() {/*
-block input {
-   tag: 'span'
+// var temp = new Stx(function() {/*
+// block input {
+//    tag: 'span'
 
-   mix: [{ block: 'clearfix' }]
+//    mix: [{ block: 'clearfix' }]
 
-   default: {
-       this._attrs = this.ctx.attrs;
-       this.ctx.attrs = null;
-   }
+//    default: {
+//        applyNext(
+//            this._attrs = this.ctx.attrs,
+//            this.ctx.attrs = null
+//        );
+//    }
 
-   content: {
-       var attrs = this._attrs || {};
+//    content: {
+//        var attrs = this._attrs || {};
 
-       return {
-           elem: 'control',
-           attrs: attrs
-       }
-   }
+//        return {
+//            elem: 'control',
+//            attrs: attrs
+//        }
+//    }
 
-   elem control, tag: 'input'
-}
-*/});
-temp.pp();
-temp.bh.beautify().pp();
+//    elem control, tag: 'input'
+// }
+// */});
+// temp.pp();
+// pp(bemparser.matchAll (temp.src, 'topLevel'), {prompt: 'bemparsed'});
+// temp.bh.beautify().pp();
 
 //serializer.match(['begin', ['stmt', ['return', ['get', 'this']]], ['stmt', ['call', ['get', 'bla']]]], 'trans');
