@@ -132,7 +132,7 @@ var differ = require('html-differ'),
     };
 
 // bemhtml and generated bh
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/button/button.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/link/link.bemhtml',
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
     pathtail = dirname.slice('/Users/kozin/Documents/bh-migration-test/'.length),
