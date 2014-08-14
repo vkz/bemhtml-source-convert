@@ -201,14 +201,17 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 //serializer.match(['begin', ['stmt', ['return', ['get', 'this']]], ['stmt', ['call', ['get', 'bla']]]], 'trans');
 
 
-// var temp = new Stx(function() {/*
-// block button {
-//  default: { return applyNext(); }
-//  tag: 'button'
-// }
-// block button {
-//  content: 'Hello Ya'
-// }
-// */});
-// temp.pp();
-// temp.match({block: 'module'});
+var temp = new Stx(function() {/*
+block serp-url {
+    elem link, default: {
+        var ctx = this.ctx;
+        delete ctx.elem;
+        applyCtx(this.extend(ctx, {
+            block: 'link',
+            mix: { block: this.block, elem: this.elem }
+        }));
+    }
+}
+*/});
+temp.pp();
+temp.match({block: 'module'});
