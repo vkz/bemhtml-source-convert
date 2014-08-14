@@ -153,16 +153,27 @@ var convert = require('..'),
 Bh = require('bh').BH,
 lo = require('lodash');
 
-var json1 = {block : 'button', elem : 'item', mods:  {disabled: true, sparkling: true}},
-    json2 = lo.cloneDeep(json1),
+var json1 = {block : 'button'},
+    json2 = {block: 'something'},
 
-    template1 = function (bh) {
-        bh.match('button__item', function(ctx, json) {
-            pp(json.elemMods);
-            ctx.mod({disabled: false});
+    template = function (bh) {
+
+        bh.match('notbutton', function(ctx, json) {
+            ctx.content(['Yandex']);
         });
-    },
-    bh1 = new Bh();
 
-template1(bh1);
+        bh.match('button', function(ctx, json) {
+            ctx.tag('button');
+            ctx.applyBase();
+            ctx.content(['Hello', ctx.content()]);
+        });
+
+    },
+    bh1 = new Bh(),
+    bh2 = new Bh();
+
+template(bh1);
 bh1.apply(json1);
+
+template(bh2);
+bh2.apply(json2);

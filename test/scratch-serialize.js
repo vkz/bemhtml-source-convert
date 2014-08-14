@@ -132,7 +132,7 @@ var differ = require('html-differ'),
     };
 
 // bemhtml and generated bh
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/link/link.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/input/input.bemhtml',
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
     pathtail = dirname.slice('/Users/kozin/Documents/bh-migration-test/'.length),
@@ -147,7 +147,7 @@ var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/link/link.bemh
 pp(bemjson, {prompt: 'json'});
 stx.pp(stx.src, {prompt: 'bemhtml'});
 
-// pp(escodegen.generate (esprima.parse (compat.transpile (stx.src))));
+pp(escodegen.generate (esprima.parse (compat.transpile (stx.src))));
 
 var html = stx.bh.match(json2),
     diff = differ.diffHtml(html, htmlexpected);
@@ -177,25 +177,20 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 // var temp = new Stx(function() {/*
 // block input {
 //    tag: 'span'
-
 //    mix: [{ block: 'clearfix' }]
-
 //    default: {
 //        applyNext(
 //            this._attrs = this.ctx.attrs,
 //            this.ctx.attrs = null
 //        );
 //    }
-
 //    content: {
 //        var attrs = this._attrs || {};
-
 //        return {
 //            elem: 'control',
 //            attrs: attrs
 //        }
 //    }
-
 //    elem control, tag: 'input'
 // }
 // */});
@@ -206,8 +201,14 @@ console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
 //serializer.match(['begin', ['stmt', ['return', ['get', 'this']]], ['stmt', ['call', ['get', 'bla']]]], 'trans');
 
 
-var obj = {
-    a : 'a'
-}
-    .b = 'b'
-    .c = 'c';
+// var temp = new Stx(function() {/*
+// block button {
+//  default: { return applyNext(); }
+//  tag: 'button'
+// }
+// block button {
+//  content: 'Hello Ya'
+// }
+// */});
+// temp.pp();
+// temp.match({block: 'module'});
