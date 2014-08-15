@@ -120,7 +120,12 @@ var convert = require('..'),
 // temp5.bemhtml.match({block: 'button', url: 'yandex.ru', _bla: 'yandex-team.ru'});
 
 
-// test html
+// pp(bemparser.matchAll ('this.mods.layout', 'stmt'));
+// pp(bemparser.matchAll ('this.mods.layout = "val"', 'stmt'));
+// jstrans.match(['call', ['getp', ['string', 'mod'], ['get', 'ctx']], ['string', 'p'], ['string', 'val']], 'trans');
+
+
+
 var differ = require('html-differ'),
     difflogger = require('html-differ/lib/diff-logger'),
     options = {
@@ -131,8 +136,7 @@ var differ = require('html-differ'),
         bem: false
     };
 
-// bemhtml and generated bh
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/input/input.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/serp-url/serp-url.bemhtml',
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
     pathtail = dirname.slice('/Users/kozin/Documents/bh-migration-test/'.length),
@@ -144,74 +148,22 @@ var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/input/input.be
     htmlexpected = stx.match(json1);
 
 
-pp(bemjson, {prompt: 'json'});
-stx.pp(stx.src, {prompt: 'bemhtml'});
+pp(bemjson, {prompt: 'json'});                             // show json
+stx.pp(stx.src, {prompt: 'bemhtml'});                      // show bemhtml
 
-pp(escodegen.generate (esprima.parse (compat.transpile (stx.src))));
+var bhHandWritten = require('/Users/kozin/Documents/granny/' + pathtail + '/' + name + '.bh.js'),
+    bh = new Bh();
+bhHandWritten(bh);
+pp(bhHandWritten.toString(), {prompt: 'bh hand-written'}); // show bh
+
+stx.bh.beautify().pp({prompt: 'bh generated'});            // show bh-generated
+
 
 var html = stx.bh.match(json2),
     diff = differ.diffHtml(html, htmlexpected);
-stx.bh.beautify().pp({prompt: 'bh generated'});
-
-// hand-written bh
-var bhsrc = require('/Users/kozin/Documents/granny/' + pathtail + '/' + name + '.bh.js'),
-    bh = new Bh();
-bhsrc(bh);
-pp(bhsrc.toString(), {prompt: 'bh hand-written'});
-
-// maybe show html diff
 if (!differ.isEqual(html, htmlexpected)) {
     pp('Html diff bemhtml VS bh generated\n'.red);
-    difflogger.log(diff, { charsAroundDiff: 500 });
+    difflogger.log(diff, { charsAroundDiff: 500 });                      // show html-diff
+    console.log('Html from hand-written bh\n'.magenta, bh.apply(json3)); // show html from hand-written bh
     console.log('\n');
 }
-
-console.log('Html from hand-written bh\n'.magenta, bh.apply(json3));
-
-
-// pp(bemparser.matchAll ('this.mods.layout', 'stmt'));
-// pp(bemparser.matchAll ('this.mods.layout = "val"', 'stmt'));
-
-// jstrans.match(['call', ['getp', ['string', 'mod'], ['get', 'ctx']], ['string', 'p'], ['string', 'val']], 'trans');
-
-// var temp = new Stx(function() {/*
-// block input {
-//    tag: 'span'
-//    mix: [{ block: 'clearfix' }]
-//    default: {
-//        applyNext(
-//            this._attrs = this.ctx.attrs,
-//            this.ctx.attrs = null
-//        );
-//    }
-//    content: {
-//        var attrs = this._attrs || {};
-//        return {
-//            elem: 'control',
-//            attrs: attrs
-//        }
-//    }
-//    elem control, tag: 'input'
-// }
-// */});
-// temp.pp();
-// pp(bemparser.matchAll (temp.src, 'topLevel'), {prompt: 'bemparsed'});
-// temp.bh.beautify().pp();
-
-//serializer.match(['begin', ['stmt', ['return', ['get', 'this']]], ['stmt', ['call', ['get', 'bla']]]], 'trans');
-
-
-var temp = new Stx(function() {/*
-block serp-url {
-    elem link, default: {
-        var ctx = this.ctx;
-        delete ctx.elem;
-        applyCtx(this.extend(ctx, {
-            block: 'link',
-            mix: { block: this.block, elem: this.elem }
-        }));
-    }
-}
-*/});
-temp.pp();
-temp.match({block: 'module'});
