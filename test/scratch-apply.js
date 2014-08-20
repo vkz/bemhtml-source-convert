@@ -121,4 +121,4 @@ block service {
     }
 }
 */});
-temp.bh.beautify().pp();
+temp.bh.beautify().pp({prompt: 'bh'});
