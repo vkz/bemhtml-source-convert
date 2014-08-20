@@ -73,7 +73,7 @@ var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/serp-url/serp-
     htmlExpectedBh;
 
 pp(bemjson, {prompt: dirname + '/' + name + '.json'});                             // show json
-stx.pp(stx.src, {prompt: 'bemhtml'});                      // show bemhtml
+stx.bemhtml.pp({prompt: 'bemhtml'});                      // show bemhtml
 pp(bhHandWritten.toString(), {prompt: 'bh hand-written'}); // show bh
 
 stx.bh.beautify().pp({prompt: 'bh generated'});            // show bh-generated
