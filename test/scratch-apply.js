@@ -122,3 +122,4 @@ block service {
 }
 */});
 temp.bh.beautify().pp({prompt: 'bh'});
+temp.pp(temp.src, {prompt: 'bemhtml'});
