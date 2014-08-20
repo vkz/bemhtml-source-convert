@@ -1,63 +1,27 @@
 #!/usr/bin/env node
 
-// -i --input input_stream [stdin]
-// -o --output output_stream [stdout]
-// -c --classify
-// -v --verbose
+// -i infile.bemhtml [default: stdin]
+// -o outfil.bh.js [default: stdout]
+// -v print ast, classification in edition to bh
 // -h --help
-// --test
 
 require('coa').Cmd()
     .name(process.argv[1])
     .helpful()
     .opt()
-        .name('version')
-        .title('Version')
-        .short('v')
-        .long('version')
-        .only()
-        .flag()
-        .act(function(opts) {
-            // return message as result of action
-            var package = require('fs').readFileSync(__dirname +
-                                                     '/../package.json');
-            return JSON.parse(package).version;
-        })
-        .end()
-    .opt()
         .name('verbose')
-        .title('Verbose')
-        .short('V')
+        .title('verbose')
+        .short('v')
         .long('verbose')
         .flag()
         .end()
     .opt()
-        .name('classify')
-        .title('Classify bemhtml template without converting it')
-        .short('c')
-        .long('classify')
-        .flag()
-        .end()
-    .opt()
-        .name('classify2')
-        .title('Classify bemhtml template without converting it')
-        .short('c2')
-        .flag()
-        .end()
-    .opt()
-        .name('parse')
-        .title('Parse bemhtml template without converting it')
-        .short('p')
-        .long('parse')
-        .flag()
-        .end()
-    .opt()
-        .name('input').title('Input file (default: stdin)')
+        .name('input').title('File to convert (default: stdin)')
         .short('i').long('input')
         .input()
         .end()
     .opt()
-        .name('output').title('Output file (default: stdout)')
+        .name('output').title('Output to file (default: stdout)')
         .short('o').long('output')
         .output()
         .end()
