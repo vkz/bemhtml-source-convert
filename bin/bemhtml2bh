@@ -2,7 +2,8 @@
 
 // -i infile.bemhtml [default: stdin]
 // -o outfil.bh.js [default: stdout]
-// -v print ast, classification in edition to bh
+// -j bemjson.json
+// -v print ast and classification classification in edition to bh
 // -h --help
 
 require('coa').Cmd()
