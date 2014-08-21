@@ -68,34 +68,36 @@ var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/serp-url/serp-
     json2 = lo.cloneDeep(json1),
     json3 = lo.cloneDeep(json1),
     bhHandWritten = require('/Users/kozin/Documents/granny/' + pathtail + '/' + name + '.bh.js'),
-    bh = new Bh(),
-    htmlExpectedBemhtml = stx.match(json1),
-    htmlExpectedBh;
+    bh = new Bh();
+
+
+// var htmlExpectedBemhtml = stx.match(json1),
+//     htmlExpectedBh;
 
 pp(bemjson, {prompt: dirname + '/' + name + '.json'});                             // show json
-stx.bemhtml.pp({prompt: 'bemhtml'});                      // show bemhtml
-pp(bhHandWritten.toString(), {prompt: 'bh hand-written'}); // show bh
+// stx.bemhtml.pp({prompt: 'bemhtml'});                      // show bemhtml
+// pp(bhHandWritten.toString(), {prompt: 'bh hand-written'}); // show bh
 
-stx.bh.beautify().pp({prompt: 'bh generated'});            // show bh-generated
+// stx.bh.beautify().pp({prompt: 'bh generated'});            // show bh-generated
 
-bhHandWritten(bh);
-htmlExpectedBh = bh.apply(json3);
+// bhHandWritten(bh);
+// htmlExpectedBh = bh.apply(json3);
 
-var html = stx.bh.match(json2),
-    diffBemhtml = differ.diffHtml(html, htmlExpectedBemhtml),
-    diffBh = differ.diffHtml(html, htmlExpectedBh);
+// var html = stx.bh.match(json2),
+//     diffBemhtml = differ.diffHtml(html, htmlExpectedBemhtml),
+//     diffBh = differ.diffHtml(html, htmlExpectedBh);
 
-if (!differ.isEqual(html, htmlExpectedBemhtml)) {
-    pp('HTML bh-generated vs expected from bemhtml\n');
-    difflogger.log(diffBemhtml, { charsAroundDiff: 500 }); // show html-diff
-    console.log('BH'.underline, '\n', html);
-    console.log('BEMHTML'.underline, '\n', htmlExpectedBemhtml);
-}
+// if (!differ.isEqual(html, htmlExpectedBemhtml)) {
+//     pp('HTML bh-generated vs expected from bemhtml\n');
+//     difflogger.log(diffBemhtml, { charsAroundDiff: 500 }); // show html-diff
+//     console.log('BH'.underline, '\n', html);
+//     console.log('BEMHTML'.underline, '\n', htmlExpectedBemhtml);
+// }
 
-if (!differ.isEqual(html, htmlExpectedBh)) {
-    pp('HTML bh-generated vs expected from bh\n');
-    difflogger.log(diffBh, { charsAroundDiff: 500 });      // show html-diff
-}
+// if (!differ.isEqual(html, htmlExpectedBh)) {
+//     pp('HTML bh-generated vs expected from bh\n');
+//     difflogger.log(diffBh, { charsAroundDiff: 500 });      // show html-diff
+// }
 
 var temp = new Stx(function() {/*
 block service {
@@ -123,3 +125,20 @@ block service {
 */});
 temp.bh.beautify().pp({prompt: 'bh'});
 temp.pp(temp.src, {prompt: 'bemhtml'});
+console.log('+ expected'.green, '- actual'.red);
+
+
+function htmlDiff(stx, json) {
+    var differ = require('html-differ'),
+        difflogger = require('html-differ/lib/diff-logger'),
+        jsonCopy = lo.cloneDeep(json),
+        htmlExpected = stx.match(json),
+        htmlBh = stx.bh.match(jsonCopy),
+        htmldiff = differ.diffHtml(htmlBh, htmlExpected);
+
+    console.log(json, '\n', htmlExpected);
+    console.log(jsonCopy, '\n', htmlBh);
+
+    return (differ.isEqual(htmlBh, htmlExpected) && htmlBh) ||
+        difflogger.getDiffText(htmldiff, { charsAroundDiff: 500 });
+}
