@@ -53,8 +53,11 @@ var differ = require('html-differ'),
 // // return applyNext(hash) - what does this convert into?
 // var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/navigation/navigation.bemhtml',
 
+// // indexOf and applyCtx
+// var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/serp-url/serp-url.bemhtml',
+
 // indexOf and applyCtx
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/serp-url/serp-url.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-weather/__forecast/z-weather__forecast.bemhtml',
 
 // // applyCtx and return applyNext()
 // var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/serp-sitelinks/serp-sitelinks.bemhtml',
@@ -71,74 +74,58 @@ var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/serp-url/serp-
     bh = new Bh();
 
 
-// var htmlExpectedBemhtml = stx.match(json1),
-//     htmlExpectedBh;
+var htmlExpectedBemhtml = stx.match(json1),
+    htmlExpectedBh;
 
 pp(bemjson, {prompt: dirname + '/' + name + '.json'});                             // show json
-// stx.bemhtml.pp({prompt: 'bemhtml'});                      // show bemhtml
-// pp(bhHandWritten.toString(), {prompt: 'bh hand-written'}); // show bh
+stx.bemhtml.pp({prompt: 'bemhtml'});                      // show bemhtml
+pp(bhHandWritten.toString(), {prompt: 'bh hand-written'}); // show bh
 
-// stx.bh.beautify().pp({prompt: 'bh generated'});            // show bh-generated
+stx.bh.beautify().pp({prompt: 'bh generated'});            // show bh-generated
 
-// bhHandWritten(bh);
-// htmlExpectedBh = bh.apply(json3);
+bhHandWritten(bh);
+htmlExpectedBh = bh.apply(json3);
 
-// var html = stx.bh.match(json2),
-//     diffBemhtml = differ.diffHtml(html, htmlExpectedBemhtml),
-//     diffBh = differ.diffHtml(html, htmlExpectedBh);
+var html = stx.bh.match(json2),
+    diffBemhtml = differ.diffHtml(html, htmlExpectedBemhtml),
+    diffBh = differ.diffHtml(html, htmlExpectedBh);
 
-// if (!differ.isEqual(html, htmlExpectedBemhtml)) {
-//     pp('HTML bh-generated vs expected from bemhtml\n');
-//     difflogger.log(diffBemhtml, { charsAroundDiff: 500 }); // show html-diff
-//     console.log('BH'.underline, '\n', html);
-//     console.log('BEMHTML'.underline, '\n', htmlExpectedBemhtml);
-// }
-
-// if (!differ.isEqual(html, htmlExpectedBh)) {
-//     pp('HTML bh-generated vs expected from bh\n');
-//     difflogger.log(diffBh, { charsAroundDiff: 500 });      // show html-diff
-// }
-
-var temp = new Stx(function() {/*
-block service {
-    default: {
-        var ctx = this.ctx;
-        this._urlAttrs = this.extend(ctx.urlAttrs, {
-            onmousedown: ctx.counter,
-            href: ctx.url
-        });
-
-        applyNext({
-            _url: (ctx.url !== false) && (ctx.url || ''),
-            _icon: (ctx.icon !== false),
-            _name: (ctx.name !== false),
-            'ctx.name': 'newname'
-        });
-    }
-    content, !this.elem, this._url: {
-        block: 'link',
-        mix: { block: 'service', elem: 'url' },
-        attrs: this._urlAttrs,
-        content: applyNext()
-    }
+if (!differ.isEqual(html, htmlExpectedBemhtml)) {
+    pp('HTML bh-generated vs expected from bemhtml\n');
+    difflogger.log(diffBemhtml, { charsAroundDiff: 500 }); // show html-diff
+    console.log('BH'.underline, '\n', html);
+    console.log('BEMHTML'.underline, '\n', htmlExpectedBemhtml);
 }
-*/});
-temp.bh.beautify().pp({prompt: 'bh'});
-temp.pp(temp.src, {prompt: 'bemhtml'});
-console.log('+ expected'.green, '- actual'.red);
 
-
-function htmlDiff(stx, json) {
-    var differ = require('html-differ'),
-        difflogger = require('html-differ/lib/diff-logger'),
-        jsonCopy = lo.cloneDeep(json),
-        htmlExpected = stx.match(json),
-        htmlBh = stx.bh.match(jsonCopy),
-        htmldiff = differ.diffHtml(htmlBh, htmlExpected);
-
-    console.log(json, '\n', htmlExpected);
-    console.log(jsonCopy, '\n', htmlBh);
-
-    return (differ.isEqual(htmlBh, htmlExpected) && htmlBh) ||
-        difflogger.getDiffText(htmldiff, { charsAroundDiff: 500 });
+if (!differ.isEqual(html, htmlExpectedBh)) {
+    pp('HTML bh-generated vs expected from bh\n');
+    difflogger.log(diffBh, { charsAroundDiff: 500 });      // show html-diff
 }
+
+// var temp = new Stx(function() {/*
+// block service {
+//     default: {
+//         var ctx = this.ctx;
+//         this._urlAttrs = this.extend(ctx.urlAttrs, {
+//             onmousedown: ctx.counter,
+//             href: ctx.url
+//         });
+
+//         applyNext({
+//             _url: (ctx.url !== false) && (ctx.url || ''),
+//             _icon: (ctx.icon !== false),
+//             _name: (ctx.name !== false),
+//             'ctx.name': 'newname'
+//         });
+//     }
+//     content, !this.elem, this._url: {
+//         block: 'link',
+//         mix: { block: 'service', elem: 'url' },
+//         attrs: this._urlAttrs,
+//         content: applyNext()
+//     }
+// }
+// */});
+// temp.bh.beautify().pp({prompt: 'bh'});
+// temp.pp(temp.src, {prompt: 'bemhtml'});
+// console.log('+ expected'.green, '- actual'.red);
