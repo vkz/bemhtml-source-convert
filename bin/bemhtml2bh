@@ -3,6 +3,7 @@
 // -i infile.bemhtml [default: stdin]
 // -o outfil.bh.js [default: stdout]
 // -j bemjson.json
+// -s setOptions {jsAttrName: 'data-bem' , jsAttrScheme: 'json'}
 // -v print ast and classification classification in edition to bh
 // -h --help
 
@@ -24,6 +25,11 @@ require('coa').Cmd()
         .name('bemjson').title('Apply templates to this bemjson file')
         .short('j').long('json')
         .val(function(v) {return JSON.parse(require('fs').readFileSync(v, 'utf8'));})
+        .end()
+    .opt()
+        .name('setOptions').title('Set bh-template options (default: { \"jsAttrName\": \"onclick\" , \"jsAttrScheme\": \"js\" })')
+        .short('s').long('setOptions')
+        .val(function(v) {console.log(JSON.parse(v)); return JSON.parse(v);})
         .end()
     .opt()
         .name('output').title('Output to file (default: stdout)')
