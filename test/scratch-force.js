@@ -60,3 +60,5 @@ if (!differ.isEqual(html, htmlExpectedBemhtml)) {
     console.log('\nHTML from bh'.red, '\n', html);
     console.log('\nHTML from bemhtml'.green, '\n', htmlExpectedBemhtml);
 }
+
+pp(html, {prompt: 'HTML'});
