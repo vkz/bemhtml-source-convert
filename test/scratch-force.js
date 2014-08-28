@@ -11,6 +11,7 @@ var convert = require('..'),
     bemparser = require('../lib/ometa/bemhtml').BEMHTMLParser,
     compat = require('bemhtml-compat'),
     jstrans = ometajs.grammars.BSJSTranslator,
+    beautify = require('js-beautify').html,
     uglify = require('uglify-js'),
     colors = require('colors'),
     esprima = require('esprima'),
@@ -24,20 +25,21 @@ var convert = require('..'),
                            return path.basename(f, '.bemhtml');
                        });
 
-var differ = require('html-differ'),
-    difflogger = require('html-differ/lib/diff-logger'),
-    options = {
-        ignoreHtmlAttrs: [],
-        compareHtmlAttrsAsJSON: [],
-        ignoreWhitespaces: true,
-        ignoreHtmlComments: true,
-        bem: false
-    };
+var options = {
+    ignoreHtmlAttrs: [],
+    compareHtmlAttrsAsJSON: [],
+    ignoreWhitespaces: false,
+    ignoreHtmlComments: true,
+    bem: false
+},
+    HtmlDiffer = require('html-differ').HtmlDiffer,
+    differ = new HtmlDiffer(options),
+    difflogger = require('html-differ/lib/diff-logger');
 
 // // return applyNext
 // var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/navigation/_more-type/navigation_more-type_tablo.bemhtml',
 
-var bemhtmlsrc = 'scratch.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/navigation/_more-type/navigation_more-type_tablo.bemhtml',
 
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
@@ -60,5 +62,3 @@ if (!differ.isEqual(html, htmlExpectedBemhtml)) {
     console.log('\nHTML from bh'.red, '\n', html);
     console.log('\nHTML from bemhtml'.green, '\n', htmlExpectedBemhtml);
 }
-
-pp(html, {prompt: 'HTML  '});
