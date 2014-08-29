@@ -8,3 +8,5 @@ npm-debug.log
 /data.js
 /scratch.html
 .idea
+.tern-project
+bower_components/
