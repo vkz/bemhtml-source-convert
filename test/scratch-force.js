@@ -39,8 +39,11 @@ var options = {
 // // return applyNext
 // var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/navigation/_more-type/navigation_more-type_tablo.bemhtml',
 
+// var bemhtmlsrc = 'scratch.bemhtml',
+
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/button/button.bemhtml',
+
 // var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/navigation/navigation.bemhtml',
-var bemhtmlsrc = 'scratch.bemhtml',
 
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),
