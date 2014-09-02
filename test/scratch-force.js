@@ -39,7 +39,7 @@ var options = {
 // // arbitrary JS in mix()
 // var bemhtmlsrc = '/Users/kozin/Documents/bemhtml-source-convert/blocks-deskpad/content-preview/__core/content-preview__core.bemhtml',
 
-var bemhtmlsrc = '/Users/kozin/Documents/bemhtml-source-convert/blocks-deskpad/i-global/i-global.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/input/input.bemhtml',
 
 // var bemhtmlsrc = '/Users/kozin/Documents/bemhtml-source-convert/test/scratch.bemhtml',
 
