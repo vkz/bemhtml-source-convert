@@ -36,10 +36,10 @@ var options = {
     differ = new HtmlDiffer(options),
     difflogger = require('html-differ/lib/diff-logger');
 
-// // arbitrary JS in mix()
-// var bemhtmlsrc = '/Users/kozin/Documents/bemhtml-source-convert/blocks-deskpad/content-preview/__core/content-preview__core.bemhtml',
+// arbitrary JS in mix()
+var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
 
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/input/input.bemhtml',
+// var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/input/input.bemhtml',
 
 // var bemhtmlsrc = '/Users/kozin/Documents/bemhtml-source-convert/test/scratch.bemhtml',
 
@@ -53,7 +53,11 @@ var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/input/input.be
 pp(bemjson, {prompt: dirname + '/' + name + '.json'});                             // show json
 stx.bemhtml.pp({prompt: 'bemhtml'});                      // show bemhtml
 
-stx.bh.beautify().pp({prompt: 'bh generated'});            // show bh-generated
+try {
+    stx.bh.beautify().pp({prompt: 'bh generated'});            // show bh-generated
+} catch(e) {
+    console.log(e.message);
+}
 
 var htmlExpectedBemhtml = stx.match(json1),
     html = stx.bh.match(json2),
