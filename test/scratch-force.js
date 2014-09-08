@@ -36,12 +36,12 @@ var options = {
     differ = new HtmlDiffer(options),
     difflogger = require('html-differ/lib/diff-logger');
 
-// arbitrary JS in mix()
-var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
+// // arbitrary JS in mix()
+// var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/z-pseudo/z-pseudo.bemhtml',
 
 // var bemhtmlsrc = '/Users/kozin/Documents/bh-migration-test/blocks/input/input.bemhtml',
 
-// var bemhtmlsrc = '/Users/kozin/Documents/bemhtml-source-convert/test/scratch.bemhtml',
+var bemhtmlsrc = '/Users/kozin/Documents/bemhtml-source-convert/test/scratch.bemhtml',
 
     stx = new Stx(fs.readFileSync(bemhtmlsrc, 'utf8')),
     dirname = path.dirname(bemhtmlsrc),

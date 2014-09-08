@@ -15,21 +15,21 @@
     "bemhtml2bh": "./bin/bemhtml2bh"
   },
   "dependencies": {
-    "bem-xjst": "~0.3.4",
-    "bemhtml-compat": "~0.0.11",
-    "bh": "~2.2.0",
-    "coa": "~0.4.1",
+    "bem-xjst": "^0.3.4",
+    "bemhtml-compat": "^0.0.11",
+    "bh": "^2.2.0",
+    "coa": "^0.4.1",
+    "colors": "^0.6.2",
+    "escodegen": "^1.4.1",
+    "esprima": "^1.2.2",
+    "html-differ": "^0.5.0",
     "js-beautify": "^1.5.1",
-    "lodash": "~2.4.1",
-    "mocha": "~1.20.1",
-    "ometajs": "~3.2.4",
-    "q": "~1.0.1",
-    "uglify-js": "^2.4.15",
-    "xjst": "~0.4.21"
+    "lodash": "^2.4.1",
+    "mocha": "^1.20.1",
+    "ometajs": "^3.2.4",
+    "xjst": "^0.4.21"
   },
-  "devDependencies": {
-    "html-differ": "~0.5.0"
-  },
+  "devDependencies": {},
   "directories": {},
   "private": true
 }
