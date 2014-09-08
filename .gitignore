@@ -18,3 +18,4 @@ lib/ometa/wat*
 /lib/ometa/bemhtml.ometajs
 /lib/ometa/bemhtml-classify.ometajs
 /lib/i-bem.bemhtml.js
+/.tern-port
