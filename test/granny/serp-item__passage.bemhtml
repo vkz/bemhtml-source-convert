@@ -1,4 +1,0 @@
-block serp-item, elem passage {
-    tag: 'b'
-    content: '... '
-}

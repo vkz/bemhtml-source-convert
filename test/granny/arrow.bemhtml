@@ -1,7 +1,0 @@
-block arrow, content: {
-    elem: 'inner',
-    content: [
-        applyNext(),
-        { elem: 'corner', content: { elem: 'triangle' } }
-    ]
-}

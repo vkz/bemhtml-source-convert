@@ -1,4 +1,0 @@
-block copyright {
-    tag: 'span'
-    mix: { block: 'link' }
-}

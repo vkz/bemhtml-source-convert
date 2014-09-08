@@ -1,8 +1,0 @@
-block user {
-    tag: 'a'
-    attrs: {
-        return { href: this.ctx.url };
-    }
-
-    elem enter, tag: 'span'
-}
