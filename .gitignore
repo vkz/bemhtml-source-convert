@@ -11,3 +11,10 @@ npm-debug.log
 .idea
 .tern-project
 bower_components/
+test/scratch*
+blocks-*
+lib/ometa/wat*
+/test/granny/
+/lib/ometa/bemhtml.ometajs
+/lib/ometa/bemhtml-classify.ometajs
+/lib/i-bem.bemhtml.js
