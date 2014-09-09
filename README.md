@@ -36,17 +36,17 @@ Options:
 Convert this meaningless template _**-i**_ *test/scratch.bemhtml* into Bh
 ```
 block node {
-mod 'size' 'big', tag: 'big'
-js: {param: 'p2'}
-attrs:  {node: 'yes'}
+    mod 'size' 'big', tag: 'big'
+    js: {param: 'p2'}
+    attrs:  {node: 'yes'}
 }
 ```
 
 feeding it a *bemjson* _**-j**_ *test/scratch.json*
 ```
 {
-"block" : "node",
-"attrs": {"a": "set"}
+    "block" : "node",
+    "attrs": {"a": "set"}
 }
 ```
 
