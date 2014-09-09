@@ -1,23 +1,27 @@
 #[BEMHTML] to [BH] conversion tool
 ###### Disclaimer ######
-_Given the impedence mismatch between *Bemhtml* and *Bh* it does not seem possible to convert every template or guarantee that the applicative semantics of the source will be preserved in the result. Bemhtml is much too expressive and lenient to deliver on such promise. The ability to apply templates in modified context powered by XJST methods `apply`, `applyNext`, `applyCtx` employing the result is one feature prominantly missing in Bh, whose `applyBase` method carries a very particular meaning that doesn't map clearly on Bemhtml machinery and as of this writing appears to be broken anyway._
+_Given the impedence mismatch between Bemhtml and Bh it does not seem possible to convert every template or guarantee that the applicative semantics of the source is preserved in the result. Bemhtml is much too expressive and lenient to deliver on such promise. The ability to apply templates in a modified context powered by [xjst] methods **apply**, **applyNext**, **applyCtx** employing the result is one feature prominantly missing in Bh. Its **applyBase** method carries a very particular meaning that doesn't map clearly on Bemhtml machinery and as of this writing appears to be broken anyway._
 
 ----------------------------------------------------------------------------------
 
-[bemhtml-source-convert](https://github.com/vkz/bemhtml-source-convert) helps you port existing [Bemhtml] templates to [Bh]. Given the above disclaimer it is best viewed as an aid that guides your conversion effort. Until there's a more direct mapping between *Bemhtml* and *Bh* we hope that in the best case it will produce a drop in replacement for your *Bemhtml* template, give you enough meat to avoid writing *Bh* from scratch on your average template, and offer meaningful feedback when unable to convert. Be sure to eyeball and test even the happy case when conversion succeeds. 
+[bemhtml-source-convert](https://github.com/vkz/bemhtml-source-convert) helps you port existing [Bemhtml] templates to [Bh]. Given the above disclaimer it is best viewed as an assistant that guides your conversion effort. Until there's a more direct mapping between *Bemhtml* and *Bh* we hope that in the best case it will produce a drop in replacement for your *Bemhtml* template, give you enough meat to avoid writing *Bh* from scratch on your average template, and offer meaningful feedback when conversion fails. Be sure to eyeball and test even the happy case when conversion succeeds.
 
-###Install
-```bash
+##Install
+
+```shell
 $ git clone https://github.com/vkz/bemhtml-source-convert.git
 $ cd bemhtml-source-convert
 $ npm install
 $ bower install
 ```
 
-###Use
+##Use
 
-####cli
-```bash
+###/cli/
+
+----------------------------------------------------------------------------------
+
+```shell
 $ bemhtml2bh -h
 Usage:
   bemhtml2bh [OPTIONS] [ARGS]
@@ -32,8 +36,9 @@ Options:
   -o OUTPUT, --output=OUTPUT : Output to file (default: stdout)
 ```
 
-#####Example
-Convert this meaningless template _**-i**_ *test/scratch.bemhtml* into Bh
+####Example
+Convert this meaningless _**-i**_ *test/scratch.bemhtml*
+
 ```
 block node {
     mod 'size' 'big', tag: 'big'
@@ -42,7 +47,8 @@ block node {
 }
 ```
 
-feeding it a *bemjson* _**-j**_ *test/scratch.json*
+feeding it _**-j**_ *test/scratch.json*
+
 ```
 {
     "block" : "node",
@@ -51,7 +57,8 @@ feeding it a *bemjson* _**-j**_ *test/scratch.json*
 ```
 
 Hopefully this should produce a Bh template and HTML. You'll get a color-coded diff if generated Bh and original Bemhtml produce different HTML when applied to the same *bemjson*.
-```bash
+
+```shell
 ~/Documents/bemhtml-source-convert [master] $ bemhtml2bh -i test/scratch.bemhtml -j test/scratch.json
 module.exports = function (bh) {
     bh.match('node_size_big', function (ctx, json) {
@@ -67,26 +74,41 @@ expected actual
 <div a="set" class="i-bem node" data-bem="{&node="yes" onclick="return {&quot;node&quot;:{&quot;param&quot;:&quot;p2&quot;}}" node="yes"></;}}"></div>
 ```
 
-####api
-#####Stx object
-var stx = new Stx(stringOfBemhtml)
+###/api/
+----------------------------------------------------------------------------------
+####Stx {constructor}
+#####`var stx = new Stx(stringOfBemhtml)`
 
-stx.bemhtml {object} with fields/methods:
-* src duplicated in stx.src
-* match(json) duplicated in stx.match(json)
-* pp()
+#####stx.bemhtml {object}
+Has properties:
 
-stx.bh {object} with fields/methods:
-* match(json, options)
-* pp()
+  * `src` {string} also available as `stx.src`
+  * `match(json)` apply template to bemjson. Also available as `stx.match(json)`
+  * `pp(options)` pretty-print the template, accepts optional options argument (see `stx.pp` method)
 
-stx.htmlDiff(json, options)
-stx.pp(anyJavaScriptObject, {prompt: "", stringify: false)
+#####stx.bh {object}
+Bh-template is generated when you first dereference this object. Has properties:
 
-#####Example
+  * `src` {string}
+  * `match(json, options)` apply the template to bemjson. Control global BH defaults by passing optional 2nd argument {json} e.g. `{"jsAttrName": "data-bem" , "jsAttrScheme": "json"}`
+  * `pp(options)` pretty-print the template, accepts optional options argument (see `stx.pp` method)
+
+#####stx.htmlDiff(json, options)
+Apply each Bemhtml and generated Bh template to json. Optional 2nd argument is the same you'd pass to `bh.match`. Returns an {object} with properties:
+
+  * `isEqual` {boolean} - `true` if both templates produce equivalent HTML
+  * `html` {string} - html if `isEqual`, color-coded diff otherwise (ansi colors)
+
+#####stx.pp(anyJavaScriptObject, {prompt: "", stringify: false)
+Generic pretty-printer. Accepts optional 2nd argument `{object}` with properties:
+
+  * `prompt` {string} - prompt string e.g. name of the object, will be printed under the header
+  * `stringify` {boolean} -  add indentation to the object's string representation but don't wrap it in header and footer
+
+####Example
 ```javascript
-var repoDir = '/Users/kozin/Documents/bemhtml-source-convert/',
-    Stx = require(repoDir + 'lib/convert').Stx,
+var repo = '/Users/kozin/Documents/bemhtml-source-convert/',
+    Stx = require(repo).Stx,
     fs = require('fs'),
     stx = new Stx(fs.readFileSync('scratch.bemhtml', 'utf8')),
     bemjson = JSON.parse(fs.readFileSync('scratch.json', 'utf8'));
@@ -107,11 +129,15 @@ try {
 // try applying both templates to bemjson showing colored diff if they
 // produce different HTML or HTML otherwise
 var diff = stx.htmlDiff(bemjson);
-diff.isEqual ?
-    console.log('Html diff\n', diff.html) :
-    console.log('Html\n', diff.html);
+console.log(
+    diff.isEqual ? 'Html\n' : 'Html diff\n',
+    diff.html);
+
+// write generated bh out
+fs.writeFileSync('scratch.bh.js', stx.bh.src);
 ```
 
 [Bemhtml]:    http://bem.info/tags/bem-core-v2.3.0/#
 [Bemhtml/Ru]: http://ru.bem.info/technology/bemhtml/2.3.0/rationale/
 [Bh]:         https://github.com/bem/bh
+[xjst]:       https://github.com/veged/xjst
