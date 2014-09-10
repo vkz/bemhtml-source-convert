@@ -41,6 +41,5 @@
     "scripts": {
         "install": "bower install",
         "test": "mocha --reporter spec test/*-test.js"
-    },
-    "private": "true"
+    }
 }

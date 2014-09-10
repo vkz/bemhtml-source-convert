@@ -72,11 +72,15 @@ expected actual
 ```
 
 ###api
+
 ----------------------------------------------------------------------------------
+
 ####Stx {constructor}
+
 #####`var stx = new Stx(stringOfBemhtml)`
 
 #####stx.bemhtml {object}
+
 Has properties:
 
   * `src` {string} also available as `stx.src`
@@ -84,6 +88,7 @@ Has properties:
   * `pp(options)` pretty-print the template, accepts optional options argument (see `stx.pp` method)
 
 #####stx.bh {object}
+
 Bh-template is generated when you first dereference this object. Has properties:
 
   * `src` {string}
@@ -91,21 +96,23 @@ Bh-template is generated when you first dereference this object. Has properties:
   * `pp(options)` pretty-print the template, accepts optional options argument (see `stx.pp` method)
 
 #####stx.htmlDiff(json, options)
+
 Apply each Bemhtml and generated Bh template to json. Optional 2nd argument is the same you'd pass to `bh.match`. Returns an {object} with properties:
 
   * `isEqual` {boolean} - `true` if both templates produce equivalent HTML
   * `html` {string} - html if `isEqual`, color-coded diff otherwise (ansi colors)
 
 #####stx.pp(anyJavaScriptObject, {prompt: "", stringify: false)
+
 Generic pretty-printer. Accepts optional 2nd argument `{object}` with properties:
 
   * `prompt` {string} - prompt string e.g. name of the object, will be printed under the header
   * `stringify` {boolean} -  add indentation to the object's string representation but don't wrap it in header and footer
 
 ####Example
+
 ```javascript
-var repo = '/Users/kozin/Documents/bemhtml-source-convert/',
-    Stx = require(repo).Stx,
+var Stx = require('bemhtml-source-convert').Stx,
     fs = require('fs'),
     stx = new Stx(fs.readFileSync('scratch.bemhtml', 'utf8')),
     bemjson = JSON.parse(fs.readFileSync('scratch.json', 'utf8'));
@@ -133,6 +140,11 @@ console.log(
 // write generated bh out
 fs.writeFileSync('scratch.bh.js', stx.bh.src);
 ```
+
+----------------------------------------------
+
+####Contributors
+* [Sergey Berezhnoy](https://github.com/veged)
 
 [Bemhtml]:    http://bem.info/tags/bem-core-v2.3.0/#
 [Bemhtml/Ru]: http://ru.bem.info/technology/bemhtml/2.3.0/rationale/
