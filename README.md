@@ -9,15 +9,12 @@ _Given the impedence mismatch between Bemhtml and Bh it does not seem possible t
 ##Install
 
 ```shell
-$ git clone https://github.com/vkz/bemhtml-source-convert.git
-$ cd bemhtml-source-convert
-$ npm install
-$ bower install
+$ npm install bemhtml-source-convert
 ```
 
 ##Use
 
-###/cli/
+###cli
 
 ----------------------------------------------------------------------------------
 
@@ -74,7 +71,7 @@ expected actual
 <div a="set" class="i-bem node" data-bem="{&node="yes" onclick="return {&quot;node&quot;:{&quot;param&quot;:&quot;p2&quot;}}" node="yes"></;}}"></div>
 ```
 
-###/api/
+###api
 ----------------------------------------------------------------------------------
 ####Stx {constructor}
 #####`var stx = new Stx(stringOfBemhtml)`
