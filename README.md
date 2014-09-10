@@ -34,7 +34,7 @@ Options:
 ```
 
 ####Example
-Convert this meaningless _**-i**_ *test/scratch.bemhtml*
+Convert this meaningless `-i test/scratch.bemhtml`
 
 ```
 block node {
@@ -44,7 +44,7 @@ block node {
 }
 ```
 
-feeding it _**-j**_ *test/scratch.json*
+feeding it `-j test/scratch.json`
 
 ```
 {
@@ -79,7 +79,7 @@ expected actual
 
 #####`var stx = new Stx(stringOfBemhtml)`
 
-#####stx.bemhtml {object}
+#####stx.bemhtml {Object}
 
 Has properties:
 
@@ -87,7 +87,7 @@ Has properties:
   * `match(json)` apply template to bemjson. Also available as `stx.match(json)`
   * `pp(options)` pretty-print the template, accepts optional options argument (see `stx.pp` method)
 
-#####stx.bh {object}
+#####stx.bh {Object}
 
 Bh-template is generated when you first dereference this object. Has properties:
 
@@ -97,14 +97,14 @@ Bh-template is generated when you first dereference this object. Has properties:
 
 #####stx.htmlDiff(json, options)
 
-Apply each Bemhtml and generated Bh template to json. Optional 2nd argument is the same you'd pass to `bh.match`. Returns an {object} with properties:
+Apply each Bemhtml and generated Bh template to json. Optional 2nd argument is the same you'd pass to `bh.match`. Returns an {Object} with properties:
 
   * `isEqual` {boolean} - `true` if both templates produce equivalent HTML
   * `html` {string} - html if `isEqual`, color-coded diff otherwise (ansi colors)
 
-#####stx.pp(anyJavaScriptObject, {prompt: "", stringify: false)
+#####stx.pp(anyJavaScriptObject, { prompt: "", stringify: false })
 
-Generic pretty-printer. Accepts optional 2nd argument `{object}` with properties:
+Generic pretty-printer. Accepts optional 2nd argument `{Object}` with properties:
 
   * `prompt` {string} - prompt string e.g. name of the object, will be printed under the header
   * `stringify` {boolean} -  add indentation to the object's string representation but don't wrap it in header and footer
@@ -112,20 +112,21 @@ Generic pretty-printer. Accepts optional 2nd argument `{object}` with properties
 ####Example
 
 ```javascript
-var Stx = require('bemhtml-source-convert').Stx,
+var repo = '/Users/kozin/Documents/bemhtml-source-convert/',
+    Stx = require(repo).Stx,
     fs = require('fs'),
     stx = new Stx(fs.readFileSync('scratch.bemhtml', 'utf8')),
     bemjson = JSON.parse(fs.readFileSync('scratch.json', 'utf8'));
 
 // pretty-print bemjson
-stx.pp(bemjson, {prompt: 'bemjson'});
+stx.pp(bemjson, { prompt: 'bemjson' });
 
 // pretty-print bemhtml
-stx.bemhtml.pp({prompt: 'bemhtml'});
+stx.bemhtml.pp({ prompt: 'bemhtml' });
 
 // convert bemhtml into bh and pretty-print the result
 try {
-    stx.bh.pp({prompt: 'bh generated'});
+    stx.bh.pp({ prompt: 'bh generated' });
 } catch(e) {
     console.log(e.message);
 }
