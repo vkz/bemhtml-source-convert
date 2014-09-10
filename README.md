@@ -83,7 +83,7 @@ expected actual
 
 Has properties:
 
-  * `src` {string} also available as `stx.src`
+  * `src` {String} also available as `stx.src`
   * `match(json)` apply template to bemjson. Also available as `stx.match(json)`
   * `pp(options)` pretty-print the template, accepts optional options argument (see `stx.pp` method)
 
@@ -91,7 +91,7 @@ Has properties:
 
 Bh-template is generated when you first dereference this object. Has properties:
 
-  * `src` {string}
+  * `src` {String}
   * `match(json, options)` apply the template to bemjson. Control global BH defaults by passing optional 2nd argument {json} e.g. `{"jsAttrName": "data-bem" , "jsAttrScheme": "json"}`
   * `pp(options)` pretty-print the template, accepts optional options argument (see `stx.pp` method)
 
@@ -99,15 +99,15 @@ Bh-template is generated when you first dereference this object. Has properties:
 
 Apply each Bemhtml and generated Bh template to json. Optional 2nd argument is the same you'd pass to `bh.match`. Returns an {Object} with properties:
 
-  * `isEqual` {boolean} - `true` if both templates produce equivalent HTML
-  * `html` {string} - html if `isEqual`, color-coded diff otherwise (ansi colors)
+  * `isEqual` {Boolean} - `true` if both templates produce equivalent HTML
+  * `html` {String} - html if `isEqual`, color-coded diff otherwise (ansi colors)
 
 #####stx.pp(anyJavaScriptObject, { prompt: "", stringify: false })
 
 Generic pretty-printer. Accepts optional 2nd argument `{Object}` with properties:
 
-  * `prompt` {string} - prompt string e.g. name of the object, will be printed under the header
-  * `stringify` {boolean} -  add indentation to the object's string representation but don't wrap it in header and footer
+  * `prompt` {String} - prompt string e.g. name of the object, will be printed under the header
+  * `stringify` {Boolean} -  add indentation to the object's string representation but don't wrap it in header and footer
 
 ####Example
 

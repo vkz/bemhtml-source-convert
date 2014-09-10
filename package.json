@@ -39,7 +39,7 @@
         "mocha": "^1.20.1"
     },
     "scripts": {
-        "install": "bower install",
+        "install": "./node_modules/.bin/bower install",
         "test": "mocha --reporter spec test/*-test.js"
     }
 }
