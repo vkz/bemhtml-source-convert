@@ -23,7 +23,7 @@
     "dependencies": {
         "bower": "^1.3.9",
         "bem-xjst": "^0.3.4",
-        "bemhtml-compat": "^0.0.11",
+        "bemhtml-compat": "^0.1.2",
         "bh": "^2.2.0",
         "coa": "^0.4.1",
         "colors": "^0.6.2",
