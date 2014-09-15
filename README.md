@@ -112,8 +112,7 @@ Generic pretty-printer. Accepts optional 2nd argument `{Object}` with properties
 ####Example
 
 ```javascript
-var repo = '/Users/kozin/Documents/bemhtml-source-convert/',
-    Stx = require(repo).Stx,
+var Stx = require('bemhtml-source-convert').Stx,
     fs = require('fs'),
     stx = new Stx(fs.readFileSync('scratch.bemhtml', 'utf8')),
     bemjson = JSON.parse(fs.readFileSync('scratch.json', 'utf8'));

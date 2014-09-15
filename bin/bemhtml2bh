@@ -36,6 +36,12 @@ require('coa').Cmd()
         .short('o').long('output')
         .output()
         .end()
+    .opt()
+        .name('strictOff')
+        .title('Ignore bh-incompatibility warnings, perform best-effort conversion')
+        .short('S').long('strictOff')
+        .flag()
+        .end()
     .act(function(options) {
         // PIPE when reading from stdin, TTY when reading from file
         // console.log(process.binding ('tty_wrap').guessHandleType (0));
