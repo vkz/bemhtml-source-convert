@@ -6,6 +6,8 @@ _Given the impedence mismatch between Bemhtml and Bh it does not seem possible t
 
 [bemhtml-source-convert](https://github.com/vkz/bemhtml-source-convert) helps you port existing [Bemhtml] templates to [Bh]. Given the above disclaimer it is best viewed as an assistant that guides your conversion effort. Until there's a more direct mapping between *Bemhtml* and *Bh* we hope that in the best case it will produce a drop in replacement for your *Bemhtml* template, give you enough meat to avoid writing *Bh* from scratch on your average template, and offer meaningful feedback when conversion fails. Be sure to eyeball and test even the happy case when conversion succeeds.
 
+Conversion is performed in a strict mode by default, that is the compiler will accumulate any bh-incompatible features and progress till the entire template's been read and converted or exception occured. In a strict mode it will always signal an error and report incompatibilities encountered. These often point at the code that's questionable or unnecessarily convoluted even in Bemhtml world and is ripe for refactoring. Passing `-S` flag to the binary or an optional second argument `{ strict: false }` to Stx constructor will turn the strict mode off. Many more templates can be converted this way at the expense of valuable validation the compiler performs and reliability of the result. _We do **NOT** recommend it._
+
 ##Install
 
 ```shell
@@ -31,9 +33,11 @@ Options:
   -j BEMJSON, --json=BEMJSON : Apply templates to this bemjson file
   -s SETOPTIONS, --setOptions=SETOPTIONS : Set bh-template options (default: { "jsAttrName": "onclick" , "jsAttrScheme": "js" })
   -o OUTPUT, --output=OUTPUT : Output to file (default: stdout)
+  -S, --strictOff : Ignore bh-incompatibility warnings, perform best-effort conversion
 ```
 
 ####Example
+
 Convert this meaningless `-i test/scratch.bemhtml`
 
 ```
@@ -77,7 +81,7 @@ expected actual
 
 ####Stx {constructor}
 
-#####`var stx = new Stx(stringOfBemhtml)`
+#####`var stx = new Stx(stringOfBemhtml [, { strict: false }])`
 
 #####stx.bemhtml {Object}
 
