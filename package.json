@@ -1,6 +1,6 @@
 {
     "name": "bemhtml-source-convert",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "BEMHTML to BH conversion assistant",
     "homepage": "https://github.com/vkz/bemhtml-source-convert",
     "author": "Vlad Kozin <vladilen.kozin@gmail.com> (https://github.com/vkz)",
