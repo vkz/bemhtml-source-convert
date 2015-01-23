@@ -1,6 +1,6 @@
 {
     "name": "bemhtml-source-convert",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "description": "BEMHTML to BH conversion assistant",
     "homepage": "https://github.com/vkz/bemhtml-source-convert",
     "author": "Vlad Kozin <vladilen.kozin@gmail.com> (https://github.com/vkz)",
@@ -33,7 +33,7 @@
         "js-beautify": "^1.5.1",
         "lodash": "^2.4.1",
         "ometajs": "^3.2.4",
-        "xjst": "^0.4.21"
+        "xjst": "0.4.21"
     },
     "devDependencies": {
         "mocha": "^1.20.1"
