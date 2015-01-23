@@ -42,6 +42,12 @@ require('coa').Cmd()
         .short('S').long('strictOff')
         .flag()
         .end()
+    .opt()
+        .name('jsstx')
+        .title('Convert old BEMHTML syntax into Js-campatible syntax using bemhtml-compat')
+        .short('x').long('jsstx')
+        .flag()
+        .end()
     .act(function(options) {
         // PIPE when reading from stdin, TTY when reading from file
         // console.log(process.binding ('tty_wrap').guessHandleType (0));
